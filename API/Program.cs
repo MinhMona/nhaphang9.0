@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")), ServiceLifetime.Transient);
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
@@ -31,10 +31,10 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddHttpClient();
 
 builder.Services.ConfigureService();
+builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 builder.Services.AddScoped(typeof(IDomainRepository<>), typeof(DomainRepository<>));
 builder.Services.AddScoped(typeof(IQueryRepository), typeof(QueryRepository));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddTransient<ITokenManagerService, TokenManagerService>();
 

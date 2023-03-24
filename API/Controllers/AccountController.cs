@@ -23,16 +23,30 @@ namespace API.Controllers
             _accountService = serviceProvider.GetRequiredService<IAccountService>();
         }
 
-        [AppAuthorize(new string[] { RoleNameConstant.Admin })]
+        [AppAuthorize(new string[] { RoleNameConstant.Admin, RoleNameConstant.EndUser })]
         [HttpGet("{id}")]
-        public override Task<AppDomainResult> GetById(Guid id)
+        public async override Task<AppDomainResult> GetById(Guid id)
         {
-            return base.GetById(id);
+            return await base.GetById(id);
+        }
+
+        [AppAuthorize(new string[] { RoleNameConstant.Admin, RoleNameConstant.EndUser })]
+        [HttpPut]
+        public async override Task<AppDomainResult> UpdateAsync(AccountRequest request)
+        {
+            return await base.UpdateAsync(request);
         }
 
         [AppAuthorize(new string[] { RoleNameConstant.Admin })]
         [HttpPost]
         public override async Task<AppDomainResult> CreateAsync([FromBody] AccountRequest request)
+        {
+            return await base.CreateAsync(request);
+        }
+
+        [AppAuthorize(new string[] { RoleNameConstant.Admin })]
+        [HttpPost("add")]
+        public async Task<AppDomainResult> CreateSQL([FromBody] AccountRequest request)
         {
             if (!ModelState.IsValid)
                 throw new AppException(ModelState.GetErrorMessage());

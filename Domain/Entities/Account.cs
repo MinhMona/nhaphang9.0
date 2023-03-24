@@ -14,8 +14,8 @@ namespace Domain.Entities
         public bool IsAdmin { get; set; } = false;
         public Guid RoleId { get; set; }
 
-        public string Email { get; set; } = string.Empty;
-        public string Phone { get; set; } = string.Empty;
-        public string Fullname { get; set; } = string.Empty;
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        public string? Fullname { get; set; }
     }
 }

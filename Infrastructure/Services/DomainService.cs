@@ -46,7 +46,7 @@ namespace Infrastructure.Services
         public virtual async Task<E> GetByIdAsync(Guid id)
         {
             E entity = await Queryable.Where(e => e.Id == id && !e.Deleted).AsNoTracking().FirstOrDefaultAsync();
-            if(entity == null)
+            if (entity == null)
                 throw new KeyNotFoundException("Entity not exist");
             return entity;
         }

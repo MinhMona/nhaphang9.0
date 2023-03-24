@@ -8,8 +8,8 @@ namespace Infrastructure.Services
 {
     public class QueryRepository : IQueryRepository
     {
-        protected readonly AppDbContext _appDbContext;
-        public QueryRepository(AppDbContext appDbContext)
+        protected readonly IAppDbContext _appDbContext;
+        public QueryRepository(IAppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

@@ -42,11 +42,9 @@ namespace Infrastructure.DbContexts.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fullname")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAdmin")
@@ -63,7 +61,6 @@ namespace Infrastructure.DbContexts.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RoleId")
@@ -132,7 +129,7 @@ namespace Infrastructure.DbContexts.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("21724668-a428-4de3-b471-d72e287fc0cf"),
+                            Id = new Guid("0905f6ad-e399-4d6b-a4c7-09925d786696"),
                             Active = true,
                             CreatedBy = "",
                             Deleted = false,
@@ -143,7 +140,7 @@ namespace Infrastructure.DbContexts.Migrations
                         },
                         new
                         {
-                            Id = new Guid("55f24790-2f9f-4cf0-a16a-f3ef071a5d30"),
+                            Id = new Guid("a76ba3b4-6dac-4e52-af80-b4fe5e18ec6d"),
                             Active = true,
                             CreatedBy = "",
                             Deleted = false,

@@ -23,7 +23,6 @@ namespace BaseAPI.Controllers.Auths
             _configuration = configuration;
             _mapper = mapper;
             _accountService = serviceProvider.GetRequiredService<IAccountService>();
-
         }
 
         /// <summary>

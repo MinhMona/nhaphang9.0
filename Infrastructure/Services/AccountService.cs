@@ -26,10 +26,12 @@ namespace Infrastructure.Services
     public class AccountService : DomainService<Account, AccountRequest, AccountSearch>, IAccountService
     {
         protected IConfiguration _configuration;
+        protected IAppDbContext _appDbContext;
 
-        public AccountService(IUnitOfWork _unitOfWork, IMapper _mapper, IConfiguration configuration) : base(_unitOfWork, _mapper)
+        public AccountService(IUnitOfWork _unitOfWork, IMapper _mapper, IAppDbContext appDbContext, IConfiguration configuration) : base(_unitOfWork, _mapper)
         {
             _configuration = configuration;
+            _appDbContext = appDbContext;
         }
 
         protected override string GetStoreProcName()
@@ -37,6 +39,11 @@ namespace Infrastructure.Services
             return "GetPagingData_Account";
         }
 
+        public override Task<bool> CreateAsync(AccountRequest request)
+        {
+            request.Password = SecurityUtilities.HashSHA1(request.Password);
+            return base.CreateAsync(request);
+        }
         public async Task<string> LoginAsync(string username, string password)
         {
             var account = await Queryable.FirstOrDefaultAsync(x => x.Username == username && !x.Deleted);
@@ -78,6 +85,17 @@ namespace Infrastructure.Services
             return false;
         }
 
+        public async Task<bool> InsertUser(AccountRequest request)
+        {
+            var account = await Queryable.FirstOrDefaultAsync(x => x.Username == request.Username && !x.Deleted);
+            double currentDate = Timestamp.Now();
+            string currentUser = LoginContext.Instance.CurrentUser.Username;
+            string password = SecurityUtilities.HashSHA1(request.Password);
+            string query = $"INSERT INTO [dbo].[Accounts] ([Id],[Username],[Password], [RoleId] ,[Created] ,[CreatedBy] ,[Updated] ,[UpdatedBy] ,[Deleted] ,[Active] ,[IsAdmin]) " +
+            $"VALUES ('{Guid.NewGuid()}','{request.Username}','{password}','{RoleConstant.EndUser}', {currentDate}, '{currentUser}',{currentDate},'{currentUser}',0,1,0)";
+            return _unitOfWork.QueryRepository().ExecuteNonQuery(query) > 0;
+        }
+
         protected string GenerateToken(Account account)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -102,20 +120,6 @@ namespace Infrastructure.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
-
-        public async Task<bool> InsertUser(AccountRequest request)
-        {
-            return await Task.Run(() =>
-            {
-                double currentDate = Timestamp.Now();
-                string currentUser = LoginContext.Instance.CurrentUser.Username;
-                string password = SecurityUtilities.HashSHA1(request.Password);
-                string query = $"INSERT INTO [dbo].[Accounts] ([Id],[Username],[Password], [RoleId] ,[Created] ,[CreatedBy] ,[Updated] ,[UpdatedBy] ,[Deleted] ,[Active] ,[IsAdmin]) " +
-                $"VALUES ('{Guid.NewGuid()}','{request.Username}','{password}','{RoleConstant.EndUser}', {currentDate}, '{currentUser}',{currentDate},'{currentUser}',0,1,0)";
-                return _unitOfWork.Repository<Account>().ExecuteNonQuery(query) > 0;
-            });
-
         }
     }
 }
