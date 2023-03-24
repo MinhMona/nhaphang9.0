@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.DbContexts.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230318165947_init")]
+    [Migration("20230321064159_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -27,17 +27,15 @@ namespace Infrastructure.DbContexts.Migrations
 
             modelBuilder.Entity("Domain.Entities.Account", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<TimeSpan>("Created")
-                        .HasColumnType("time");
+                    b.Property<double?>("Created")
+                        .HasColumnType("float");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -46,8 +44,21 @@ namespace Infrastructure.DbContexts.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<TimeSpan>("Updated")
-                        .HasColumnType("time");
+                    b.Property<int>("NumberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NumberId"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double?>("Updated")
+                        .HasColumnType("float");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()

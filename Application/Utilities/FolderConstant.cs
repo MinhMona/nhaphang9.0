@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.UnitOfWorks
+namespace Application.Utilities
 {
-    public interface IUnitOfWork
+    public class FolderConstant
     {
+        public const string UPLOAD_FOLDER_NAME = "Uploads";
     }
 }

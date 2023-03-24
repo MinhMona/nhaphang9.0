@@ -13,12 +13,12 @@ namespace Domain.Models.DomainModels
         /// <summary>
         /// Khóa chính
         /// </summary>
-        public int Id { get; set; }
+        public Guid? Id { get; set; }
 
         /// <summary>
         /// Ngày tạo
         /// </summary>
-        public TimeSpan Created { get; set; }
+        public double? Created { get; set; }
 
         /// <summary>
         /// Tạo bởi
@@ -27,7 +27,7 @@ namespace Domain.Models.DomainModels
         /// <summary>
         /// Ngày cập nhật
         /// </summary>
-        public TimeSpan Updated { get; set; }
+        public double? Updated { get; set; }
 
         /// <summary>
         /// Người cập nhật
@@ -43,5 +43,10 @@ namespace Domain.Models.DomainModels
         /// Cờ active
         /// </summary>
         public bool Active { get; set; }
+
+        /// <summary>
+        /// Id số
+        /// </summary>
+        public int? NumberId { get; set; }
     }
 }

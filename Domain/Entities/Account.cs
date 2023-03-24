@@ -10,5 +10,12 @@ namespace Domain.Entities
     public class Account : BaseEntity
     {
         public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public bool IsAdmin { get; set; } = false;
+        public Guid RoleId { get; set; }
+
+        public string Email { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+        public string Fullname { get; set; } = string.Empty;
     }
 }

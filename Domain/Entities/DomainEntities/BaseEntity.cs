@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Domain.Entities.DomainEntities
 {
     public class BaseEntity
@@ -14,38 +8,44 @@ namespace Domain.Entities.DomainEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         /// <summary>
-        /// Khóa chính
+        /// Primary key
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
-        /// Ngày tạo
+        /// Create date
         /// </summary>
-        public TimeSpan Created { get; set; }
+        public double? Created { get; set; }
 
         /// <summary>
-        /// Tạo bởi
+        /// Account create
         /// </summary>
         public string CreatedBy { get; set; } = string.Empty;
 
         /// <summary>
-        /// Ngày cập nhật
+        /// Update date
         /// </summary>
-        public TimeSpan Updated { get; set; }
+        public double? Updated { get; set; }
 
         /// <summary>
-        /// Người cập nhật
+        /// Account update
         /// </summary>
         public string UpdatedBy { get; set; } = string.Empty;
 
         /// <summary>
-        /// Cờ xóa
+        /// Delete flag
         /// </summary>
         public bool Deleted { get; set; } = false;
 
         /// <summary>
-        /// Cờ active
+        /// Active flag
         /// </summary>
         public bool Active { get; set; } = true;
+
+        /// <summary>
+        /// Auto increase number id
+        /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int NumberId { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Domain.Requests.DomainRequests
         /// <summary>
         /// Khóa chính
         /// </summary>
-        public int Id { get; set; } = 0;
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Cờ check xóa

@@ -6,28 +6,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.DbContexts.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Update1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Accounts",
+                name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Permission = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Created = table.Column<double>(type: "float", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Updated = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Updated = table.Column<double>(type: "float", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    NumberId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
         }
 
@@ -35,7 +37,7 @@ namespace Infrastructure.DbContexts.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "Roles");
         }
     }
 }

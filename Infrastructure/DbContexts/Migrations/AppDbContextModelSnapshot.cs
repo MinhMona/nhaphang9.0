@@ -24,17 +24,15 @@ namespace Infrastructure.DbContexts.Migrations
 
             modelBuilder.Entity("Domain.Entities.Account", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<TimeSpan>("Created")
-                        .HasColumnType("time");
+                    b.Property<double?>("Created")
+                        .HasColumnType("float");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -43,8 +41,36 @@ namespace Infrastructure.DbContexts.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<TimeSpan>("Updated")
-                        .HasColumnType("time");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NumberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NumberId"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double?>("Updated")
+                        .HasColumnType("float");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -57,6 +83,75 @@ namespace Infrastructure.DbContexts.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("Created")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NumberId"));
+
+                    b.Property<string>("Permission")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Updated")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("21724668-a428-4de3-b471-d72e287fc0cf"),
+                            Active = true,
+                            CreatedBy = "",
+                            Deleted = false,
+                            Name = "Admin",
+                            NumberId = 0,
+                            Permission = "",
+                            UpdatedBy = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("55f24790-2f9f-4cf0-a16a-f3ef071a5d30"),
+                            Active = true,
+                            CreatedBy = "",
+                            Deleted = false,
+                            Name = "EndUser",
+                            NumberId = 0,
+                            Permission = "",
+                            UpdatedBy = ""
+                        });
                 });
 #pragma warning restore 612, 618
         }
