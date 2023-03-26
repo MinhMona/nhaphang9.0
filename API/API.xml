@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="T:API.Controllers.AccountController">
+            <summary>
+            AccountController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.AccountController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:API.Controllers.AccountController.GetById(System.Guid)">
+            <summary>
+            Get Account By Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.AccountController.UpdateAsync(Domain.Requests.AccountRequest)">
+            <summary>
+            Update Account
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.AccountController.CreateAsync(Domain.Requests.AccountRequest)">
+            <summary>
+            Create new Account
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.AccountController.CreateSQL(Domain.Requests.AccountRequest)">
+            <summary>
+            Create new Account from SQL Query
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+            <exception cref="T:Application.Extensions.AppException"></exception>
+        </member>
+        <member name="T:API.Controllers.Auths.AuthController">
+            <summary>
+            AuthController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.Auths.AuthController.#ctor(System.IServiceProvider,Microsoft.Extensions.Configuration.IConfiguration,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{API.Controllers.Auths.AuthController})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="configuration"></param>
+            <param name="mapper"></param>
+            <param name="logger"></param>
+        </member>
+    </members>
+</doc>

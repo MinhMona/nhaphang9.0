@@ -12,15 +12,43 @@ using System.Net;
 
 namespace BaseAPI.Controllers
 {
+    /// <summary>
+    /// Base API
+    /// </summary>
+    /// <typeparam name="E">Entity</typeparam>
+    /// <typeparam name="M">Model</typeparam>
+    /// <typeparam name="R">Request</typeparam>
+    /// <typeparam name="S">SearchParam</typeparam>
     [ApiController]
     public abstract class BaseController<E, M, R, S> : ControllerBase where E : BaseEntity where M : BaseModel where R : BaseRequest where S : BaseSearch, new()
     {
+        /// <summary>
+        /// Log
+        /// </summary>
         protected readonly ILogger<ControllerBase> _logger;
+        /// <summary>
+        /// ServiceProvider
+        /// </summary>
         protected readonly IServiceProvider _serviceProvider;
+        /// <summary>
+        /// IWebHostEnvironment
+        /// </summary>
         protected IWebHostEnvironment _env;
+        /// <summary>
+        /// DomainService
+        /// </summary>
         protected IDomainService<E, R, S> _domainService;
+        /// <summary>
+        /// Auto Mapper
+        /// </summary>
         protected readonly IMapper _mapper;
 
+        /// <summary>
+        /// Contructor
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="logger"></param>
+        /// <param name="env"></param>
         public BaseController(IServiceProvider serviceProvider, ILogger<ControllerBase> logger, IWebHostEnvironment env)
         {
             _env = env;

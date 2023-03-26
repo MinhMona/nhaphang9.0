@@ -9,14 +9,36 @@ using System.Net;
 
 namespace BaseAPI.Controllers.Auths
 {
+    /// <summary>
+    /// Authentication Controller
+    /// </summary>
     [ApiController]
     public abstract class AuthController : ControllerBase
     {
+        /// <summary>
+        /// IConfiguration
+        /// </summary>
         protected IConfiguration _configuration;
+        /// <summary>
+        /// Auto Mapper
+        /// </summary>
         protected IMapper _mapper;
+        /// <summary>
+        /// Log
+        /// </summary>
         protected readonly ILogger<AuthController> _logger;
+        /// <summary>
+        /// AccountService
+        /// </summary>
         protected IAccountService _accountService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="configuration"></param>
+        /// <param name="mapper"></param>
+        /// <param name="logger"></param>
         public AuthController(IServiceProvider serviceProvider, IConfiguration configuration, IMapper mapper, ILogger<AuthController> logger)
         {
             _logger = logger;
@@ -26,7 +48,7 @@ namespace BaseAPI.Controllers.Auths
         }
 
         /// <summary>
-        /// Đăng nhập hệ thống
+        /// Login
         /// </summary>
         /// <param name="loginRequest"></param>
         /// <returns></returns>
@@ -47,7 +69,7 @@ namespace BaseAPI.Controllers.Auths
         }
 
         /// <summary>
-        /// Đăng nhập hệ thống
+        /// Registation
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>

@@ -6,8 +6,14 @@ using Domain.Requests;
 
 namespace BaseAPI.AutoMappers
 {
+    /// <summary>
+    /// Auto Mapper Profile
+    /// </summary>
     public class AppAutoMapper : Profile
     {
+        /// <summary>
+        /// Define Mapper
+        /// </summary>
         public AppAutoMapper()
         {
             #region Account

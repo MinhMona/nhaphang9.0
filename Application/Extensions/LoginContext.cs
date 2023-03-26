@@ -12,7 +12,7 @@ namespace Application.Extensions
 {
     public sealed class LoginContext
     {
-        private static LoginContext? instance = null;
+        private static LoginContext instance = null;
 
         private LoginContext()
         {
@@ -30,7 +30,7 @@ namespace Application.Extensions
             }
         }
 
-        public LoginModel? CurrentUser
+        public LoginModel CurrentUser
         {
             get
             {
@@ -46,9 +46,8 @@ namespace Application.Extensions
             instance = null;
         }
 
-        public LoginModel? GetCurrentUser(IHttpContextAccessor httpContext)
+        public LoginModel GetCurrentUser(IHttpContextAccessor httpContext)
         {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             if (httpContext != null && httpContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 var claim = httpContext.HttpContext.User.Claims.FirstOrDefault(e => e.Type == ClaimTypes.UserData);

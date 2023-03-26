@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BaseAPI</name>
+    </assembly>
+    <members>
+        <member name="T:BaseAPI.AutoMappers.AppAutoMapper">
+            <summary>
+            Auto Mapper Profile
+            </summary>
+        </member>
+        <member name="M:BaseAPI.AutoMappers.AppAutoMapper.#ctor">
+            <summary>
+            Define Mapper
+            </summary>
+        </member>
+        <member name="T:BaseAPI.ConfigureExtension">
+            <summary>
+            Configuration of extension services
+            </summary>
+        </member>
+        <member name="M:BaseAPI.ConfigureExtension.ConfigureService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            ConfigureService
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:BaseAPI.ConfigureExtension.ConfigureSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            ConfigureSwagger
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:BaseAPI.ConfigureExtension.ConfigureRepositoryWrapper(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Repository
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:BaseAPI.Controllers.Auths.AuthController">
+            <summary>
+            Authentication Controller
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.Auths.AuthController._configuration">
+            <summary>
+            IConfiguration
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.Auths.AuthController._mapper">
+            <summary>
+            Auto Mapper
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.Auths.AuthController._logger">
+            <summary>
+            Log
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.Auths.AuthController._accountService">
+            <summary>
+            AccountService
+            </summary>
+        </member>
+        <member name="M:BaseAPI.Controllers.Auths.AuthController.#ctor(System.IServiceProvider,Microsoft.Extensions.Configuration.IConfiguration,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{BaseAPI.Controllers.Auths.AuthController})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="configuration"></param>
+            <param name="mapper"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:BaseAPI.Controllers.Auths.AuthController.LoginAsync(Domain.Requests.AuthRequests.LoginRequest)">
+            <summary>
+            Login
+            </summary>
+            <param name="loginRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BaseAPI.Controllers.Auths.AuthController.RegistrationAsync(Domain.Requests.AuthRequests.RegistrationRequest)">
+            <summary>
+            Registation
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BaseAPI.Controllers.BaseController`4">
+            <summary>
+            Base API
+            </summary>
+            <typeparam name="E">Entity</typeparam>
+            <typeparam name="M">Model</typeparam>
+            <typeparam name="R">Request</typeparam>
+            <typeparam name="S">SearchParam</typeparam>
+        </member>
+        <member name="F:BaseAPI.Controllers.BaseController`4._logger">
+            <summary>
+            Log
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.BaseController`4._serviceProvider">
+            <summary>
+            ServiceProvider
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.BaseController`4._env">
+            <summary>
+            IWebHostEnvironment
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.BaseController`4._domainService">
+            <summary>
+            DomainService
+            </summary>
+        </member>
+        <member name="F:BaseAPI.Controllers.BaseController`4._mapper">
+            <summary>
+            Auto Mapper
+            </summary>
+        </member>
+        <member name="M:BaseAPI.Controllers.BaseController`4.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Contructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:BaseAPI.Controllers.BaseController`4.CreateAsync(`2)">
+            <summary>
+            Create
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BaseAPI.Controllers.BaseController`4.GetById(System.Guid)">
+            <summary>
+            Get by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BaseAPI.Controllers.BaseController`4.UpdateAsync(`2)">
+            <summary>
+            Cập nhật thông tin item
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BaseAPI.Controllers.BaseController`4.DeleteAsync(System.Guid)">
+            <summary>
+            Delete
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BaseAPI.Controllers.BaseController`4.GetPaging(`3)">
+            <summary>
+            Get paging
+            </summary>
+            <param name="baseSearch"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Repositories
 {
     public class QueryRepository : IQueryRepository
     {
@@ -21,7 +21,7 @@ namespace Infrastructure.Services
             try
             {
                 connection = (SqlConnection)_appDbContext.Database.GetDbConnection();
-                if (connection != null && connection.State != System.Data.ConnectionState.Closed)
+                if (connection != null && connection.State != ConnectionState.Closed)
                     connection.Close();
                 command = connection.CreateCommand();
                 if (connection.State != ConnectionState.Open)
@@ -31,7 +31,7 @@ namespace Infrastructure.Services
             }
             finally
             {
-                if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                if (connection != null && connection.State == ConnectionState.Open)
                     connection.Close();
 
                 if (command != null)

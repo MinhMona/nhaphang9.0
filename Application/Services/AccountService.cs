@@ -1,7 +1,6 @@
 ﻿using Application.Extensions;
 using Application.Utilities;
 using AutoMapper;
-using Domain.Common;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Requests;
@@ -10,18 +9,12 @@ using Domain.Searchs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Win32;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Infrastructure.Services
+namespace Application.Services
 {
     public class AccountService : DomainService<Account, AccountRequest, AccountSearch>, IAccountService
     {

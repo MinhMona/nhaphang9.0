@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Linq.Expressions;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Repositories
 {
     public class DomainRepository<E> : IDomainRepository<E> where E : BaseEntity
     {
@@ -22,7 +22,7 @@ namespace Infrastructure.Services
         public void Attach(E item)
         {
             _appDbContext.Set<E>().Attach(item);
-            _appDbContext.Entry<E>(item).State = EntityState.Unchanged;
+            _appDbContext.Entry(item).State = EntityState.Unchanged;
         }
 
         public virtual async Task CreateAsync(E entity)
@@ -107,7 +107,7 @@ namespace Infrastructure.Services
                 }
                 finally
                 {
-                    if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                    if (connection != null && connection.State == ConnectionState.Open)
                         connection.Close();
 
                     if (command != null)
@@ -145,7 +145,7 @@ namespace Infrastructure.Services
             }
             finally
             {
-                if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                if (connection != null && connection.State == ConnectionState.Open)
                     connection.Close();
 
                 if (command != null)

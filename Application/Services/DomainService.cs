@@ -1,5 +1,4 @@
-﻿using Application.Utilities;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain.Common;
 using Domain.Entities.DomainEntities;
 using Domain.Interfaces;
@@ -9,7 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Infrastructure.Services
+namespace Application.Services
 {
     public abstract class DomainService<E, R, S> : IDomainService<E, R, S> where E : BaseEntity where R : BaseRequest where S : BaseSearch, new()
     {

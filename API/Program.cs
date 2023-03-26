@@ -1,23 +1,22 @@
 using Application.Extensions;
 using AutoMapper;
+using BaseAPI;
 using BaseAPI.AutoMappers;
-using Domain.Interfaces;
 using Infrastructure.DbContexts;
-using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var SignalROrigins = "SignalROrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")), ServiceLifetime.Transient);
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
@@ -25,62 +24,54 @@ var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new AppAutoMapper());
 });
-
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
+
 builder.Services.AddHttpClient();
 
+builder.Services.ConfigureRepositoryWrapper();
 builder.Services.ConfigureService();
-builder.Services.AddScoped<IAppDbContext, AppDbContext>();
-builder.Services.AddScoped(typeof(IDomainRepository<>), typeof(DomainRepository<>));
-builder.Services.AddScoped(typeof(IQueryRepository), typeof(QueryRepository));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddTransient<ITokenManagerService, TokenManagerService>();
+builder.Services.ConfigureSwagger();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+    options.AddPolicy(MyAllowSpecificOrigins,
+    builder =>
+    {
+        builder
+        .WithOrigins("https://localhost:5001")
+        .AllowAnyOrigin()
+       .AllowAnyMethod()
+       .AllowAnyHeader()
+       ;
+    });
+    options.AddPolicy(SignalROrigins,
+    builder =>
+    {
+        builder
+       .AllowAnyMethod()
+       .AllowAnyHeader()
+       .AllowCredentials()
+       .SetIsOriginAllowed(hostName => true);
+    });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BaseSource", Version = "v1" });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "Jwt auth header",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                },
-                //Scheme = "oauth2",
-                //Name = "Bearer",
-                //In = ParameterLocation.Header
-            },
-            new List<string>()
-        }
-    });
-});
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
-});
-var appSettingsSection = builder.Configuration.GetSection("AppSettings");
-var appSettings = appSettingsSection.Get<AppSettings>();
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+
+var appSettingsSection = builder.Configuration.GetSection("AppSettings");
+var appSettings = appSettingsSection.Get<AppSettings>();
 string secret = appSettings != null ? appSettings.Secret : string.Empty;
 var key = Encoding.ASCII.GetBytes(secret);
-
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -98,6 +89,18 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false
     };
 });
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddSignalR();
+
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+{
+    loggerConfiguration
+        .Enrich.FromLogContext()
+        .WriteTo.Console();
+});
+
 var app = builder.Build();
 
 app.UseStaticFiles(new StaticFileOptions
@@ -110,12 +113,14 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseStaticHttpContext();
 
 app.UseSession();
+app.UseCookiePolicy();
+app.UseRouting();
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
-
 app.UseAuthorization();
 
 app.UseDefaultFiles();
@@ -130,5 +135,5 @@ app.UseSwaggerUI(c =>
 });
 
 app.MapControllers();
-
+app.MapHub<DomainHub>("/hub").RequireCors(SignalROrigins);
 app.Run();
