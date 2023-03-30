@@ -10,6 +10,8 @@ public partial class Account : BaseEntity
 
     public string? Password { get; set; }
 
+    public Guid? RoleId { get; set; }
+
     public bool IsAdmin { get; set; }
 
     public string? Fullname { get; set; }

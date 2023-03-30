@@ -29,7 +29,7 @@ namespace Application.Services
 
         protected override string GetStoreProcName()
         {
-            return "GetPagingData_Account";
+            return "AccountPaging";
         }
 
         public override Task<bool> CreateAsync(AccountRequest request)
@@ -99,7 +99,7 @@ namespace Application.Services
             {
                 UserId = account.Id,
                 Username = account.Username,
-                RoleId = account.RoleId,
+                RoleId = account.RoleId.Value,
                 IsAdmin = account.IsAdmin,
             };
             var tokenDescriptor = new SecurityTokenDescriptor

@@ -60,5 +60,57 @@
             <param name="mapper"></param>
             <param name="logger"></param>
         </member>
+        <member name="T:API.Controllers.HomePages.CustomerBenefitController">
+            <summary>
+            CustomerBenefit
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.CustomerBenefitController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="ServiceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.CustomerTalkController">
+            <summary>
+            CustomerTalk
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.CustomerTalkController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="ServiceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.ServiceController">
+            <summary>
+            Service
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.ServiceController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.StepController">
+            <summary>
+            Service
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.StepController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
     </members>
 </doc>
