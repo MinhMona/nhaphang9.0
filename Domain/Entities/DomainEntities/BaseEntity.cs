@@ -4,9 +4,9 @@ namespace Domain.Entities.DomainEntities
 {
     public class BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Required]
         /// <summary>
         /// Primary key
         /// </summary>
@@ -45,7 +45,7 @@ namespace Domain.Entities.DomainEntities
         /// <summary>
         /// Auto increase number id
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int NumberId { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int NumberId { get; set; }
     }
 }

@@ -28,44 +28,7 @@ namespace API.Controllers
         /// <param name="env"></param>
         public AccountController(IServiceProvider serviceProvider, ILogger<ControllerBase> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
-            _domainService = serviceProvider.GetRequiredService<IAccountService>();
             _accountService = serviceProvider.GetRequiredService<IAccountService>();
-        }
-
-        /// <summary>
-        /// Get Account By Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [AppAuthorize(new string[] { RoleNameConstant.Admin, RoleNameConstant.EndUser })]
-        [HttpGet("{id}")]
-        public async override Task<AppDomainResult> GetById(Guid id)
-        {
-            return await base.GetById(id);
-        }
-
-        /// <summary>
-        /// Update Account
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [AppAuthorize(new string[] { RoleNameConstant.Admin, RoleNameConstant.EndUser })]
-        [HttpPut]
-        public async override Task<AppDomainResult> UpdateAsync(AccountRequest request)
-        {
-            return await base.UpdateAsync(request);
-        }
-
-        /// <summary>
-        /// Create new Account
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [AppAuthorize(new string[] { RoleNameConstant.Admin })]
-        [HttpPost]
-        public override async Task<AppDomainResult> CreateAsync([FromBody] AccountRequest request)
-        {
-            return await base.CreateAsync(request);
         }
 
         /// <summary>
@@ -74,7 +37,7 @@ namespace API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="AppException"></exception>
-        [AppAuthorize(new string[] { RoleNameConstant.Admin })]
+        [AppAuthorize((int)PermissionEnum.Add)]
         [HttpPost("add")]
         public async Task<AppDomainResult> CreateSQL([FromBody] AccountRequest request)
         {

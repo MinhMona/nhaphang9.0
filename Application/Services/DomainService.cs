@@ -34,12 +34,21 @@ namespace Application.Services
 
         public virtual async Task<bool> CreateAsync(IList<R> requests)
         {
-            foreach (var item in requests)
+            try
             {
-                E entity = _mapper.Map<E>(item);
-                await _unitOfWork.Repository<E>().CreateAsync(entity);
+                foreach (var item in requests)
+                {
+                    E entity = _mapper.Map<E>(item);
+                    await _unitOfWork.Repository<E>().CreateAsync(entity);
+                }
+                return await _unitOfWork.Complete();
             }
-            return await _unitOfWork.Complete();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                throw new Exception(ex.InnerException.Message);
+            }
+
         }
 
         public virtual async Task<E> GetByIdAsync(Guid id)
@@ -56,35 +65,51 @@ namespace Application.Services
 
         public virtual async Task<bool> UpdateAsync(IList<R> requests)
         {
-            foreach (var item in requests)
+            try
             {
-                var exist = await Queryable
-                 .AsNoTracking()
-                 .Where(e => e.Id == item.Id && !e.Deleted)
-                 .FirstOrDefaultAsync();
-                if (exist != null)
+                foreach (var item in requests)
                 {
-                    var currentCreated = exist.Created;
-                    var currentCreatedByInfo = exist.CreatedBy;
-                    exist = _mapper.Map<E>(item);
-                    exist.Created = currentCreated;
-                    exist.CreatedBy = currentCreatedByInfo;
-                    _unitOfWork.Repository<E>().Update(exist);
+                    var exist = await Queryable
+                     .AsNoTracking()
+                     .Where(e => e.Id == item.Id && !e.Deleted)
+                     .FirstOrDefaultAsync();
+                    if (exist != null)
+                    {
+                        var currentCreated = exist.Created;
+                        var currentCreatedByInfo = exist.CreatedBy;
+                        exist = _mapper.Map<E>(item);
+                        exist.Created = currentCreated;
+                        exist.CreatedBy = currentCreatedByInfo;
+                        _unitOfWork.Repository<E>().Update(exist);
+                    }
                 }
+                return await _unitOfWork.Complete();
             }
-            return await _unitOfWork.Complete();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                throw new Exception(ex.InnerException.Message);
+            }
         }
 
         public virtual async Task<bool> DeleteAsync(Guid id)
         {
-            var exists = Queryable
+            try
+            {
+                var exists = Queryable
                 .AsNoTracking()
                 .FirstOrDefault(e => e.Id == id);
-            if (exists == null)
-                throw new KeyNotFoundException("Entity not exist");
-            exists.Deleted = true;
-            _unitOfWork.Repository<E>().Update(exists);
-            return await _unitOfWork.Complete();
+                if (exists == null)
+                    throw new KeyNotFoundException("Entity not exist");
+                exists.Deleted = true;
+                _unitOfWork.Repository<E>().Update(exists);
+                return await _unitOfWork.Complete();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                throw new Exception(ex.InnerException.Message);
+            }
         }
 
         public virtual async Task<PagedList<E>> GetPagedListData(S baseSearch)

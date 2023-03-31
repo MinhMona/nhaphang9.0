@@ -1,5 +1,7 @@
 ﻿using Application.Services;
+using Application.Services.HomePageServices;
 using Domain.Interfaces;
+using Domain.Interfaces.HomeInterfaces;
 using Infrastructure.DbContexts;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -19,6 +21,14 @@ namespace BaseAPI
         public static void ConfigureService(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IWebConfigurationService, IWebConfigurationService>();
+            #region HomePage
+            services.AddScoped<IServiceService, ServiceService>();
+            services.AddScoped<IStepService, StepService>();
+            services.AddScoped<ICustomerTalkService, CustomerTalkService>();
+            services.AddScoped<ICustomerBenefitService, CustomerBenefitService>();
+            #endregion
             services.AddTransient<ITokenManagerService, TokenManagerService>();
         }
 

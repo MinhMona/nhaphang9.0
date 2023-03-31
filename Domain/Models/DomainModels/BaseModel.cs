@@ -44,9 +44,9 @@ namespace Domain.Models.DomainModels
         /// </summary>
         public bool Active { get; set; }
 
-        /// <summary>
-        /// Id số
-        /// </summary>
-        public int? NumberId { get; set; }
+        ///// <summary>
+        ///// Id số
+        ///// </summary>
+        //public int? NumberId { get; set; }
     }
 }

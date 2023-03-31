@@ -10,6 +10,8 @@ public partial class Account : BaseEntity
 
     public string? Password { get; set; }
 
+    public Guid? RoleId { get; set; }
+
     public bool IsAdmin { get; set; }
 
     public string? Fullname { get; set; }
@@ -59,4 +61,6 @@ public partial class Account : BaseEntity
     public double? DateUpLevel { get; set; }
 
     public string? OneSignalPlayerId { get; set; }
+
+    public int? RoleNumberId { get; set; }
 }
