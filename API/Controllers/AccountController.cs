@@ -29,6 +29,7 @@ namespace API.Controllers
         public AccountController(IServiceProvider serviceProvider, ILogger<ControllerBase> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             _accountService = serviceProvider.GetRequiredService<IAccountService>();
+            _domainService = _accountService;
         }
 
         /// <summary>
