@@ -22,7 +22,7 @@ namespace BaseAPI
         {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<IWebConfigurationService, IWebConfigurationService>();
+            services.AddScoped<IWebConfigurationService, WebConfigurationService>();
             #region HomePage
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IStepService, StepService>();
