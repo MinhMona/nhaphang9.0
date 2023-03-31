@@ -63,6 +63,7 @@ namespace BaseAPI.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
+        [AppAuthorize((int)PermissionEnum.Add)]
         public virtual async Task<AppDomainResult> CreateAsync([FromBody] R request)
         {
             if (!ModelState.IsValid)
@@ -83,7 +84,7 @@ namespace BaseAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        //[AppAuthorize(new string[] { RoleNameConstant.Admin, RoleNameConstant.EndUser })]
+        [AppAuthorize((int)PermissionEnum.View)]
         public virtual async Task<AppDomainResult> GetById(Guid id)
         {
             var item = await _domainService.GetByIdAsync(id);
@@ -102,6 +103,7 @@ namespace BaseAPI.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut]
+        [AppAuthorize((int)PermissionEnum.Update)]
         public virtual async Task<AppDomainResult> UpdateAsync([FromBody] R request)
         {
             if (!ModelState.IsValid)
@@ -122,6 +124,7 @@ namespace BaseAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [AppAuthorize((int)PermissionEnum.Delete)]
         public virtual async Task<AppDomainResult> DeleteAsync(Guid id)
         {
             return new AppDomainResult()
@@ -138,6 +141,7 @@ namespace BaseAPI.Controllers
         /// <param name="baseSearch"></param>
         /// <returns></returns>
         [HttpGet]
+        [AppAuthorize((int)PermissionEnum.View)]
         public virtual async Task<AppDomainResult> GetPaging([FromQuery] S baseSearch)
         {
             if (!ModelState.IsValid)

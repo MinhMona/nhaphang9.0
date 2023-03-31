@@ -61,4 +61,6 @@ public partial class Account : BaseEntity
     public double? DateUpLevel { get; set; }
 
     public string? OneSignalPlayerId { get; set; }
+
+    public int? RoleNumberId { get; set; }
 }

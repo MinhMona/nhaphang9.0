@@ -17,27 +17,6 @@
             <param name="logger"></param>
             <param name="env"></param>
         </member>
-        <member name="M:API.Controllers.AccountController.GetById(System.Guid)">
-            <summary>
-            Get Account By Id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:API.Controllers.AccountController.UpdateAsync(Domain.Requests.AccountRequest)">
-            <summary>
-            Update Account
-            </summary>
-            <param name="request"></param>
-            <returns></returns>
-        </member>
-        <member name="M:API.Controllers.AccountController.CreateAsync(Domain.Requests.AccountRequest)">
-            <summary>
-            Create new Account
-            </summary>
-            <param name="request"></param>
-            <returns></returns>
-        </member>
         <member name="M:API.Controllers.AccountController.CreateSQL(Domain.Requests.AccountRequest)">
             <summary>
             Create new Account from SQL Query
@@ -111,6 +90,25 @@
             <param name="serviceProvider"></param>
             <param name="logger"></param>
             <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.WebConfigurationController">
+            <summary>
+            WebConfigurationController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.WebConfigurationController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:API.Controllers.WebConfigurationController.GetSingleAsync">
+            <summary>
+            Get single WebConfiguration
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -56,9 +56,10 @@ namespace Application.Services
             {
                 Username = request.Username,
                 RoleId = Guid.Parse(RoleConstant.EndUser),
+                RoleNumberId = 1,
                 Email = request.Email,
                 Phone = request.Phone,
-                Fullname = request.Fullname
+                Fullname = null
             };
             account.Password = SecurityUtilities.HashSHA1(request.Password);
             await _unitOfWork.Repository<Account>().CreateAsync(account);
@@ -82,10 +83,11 @@ namespace Application.Services
         {
             var account = await Queryable.FirstOrDefaultAsync(x => x.Username == request.Username && !x.Deleted);
             double currentDate = Timestamp.Now();
-            string currentUser = LoginContext.Instance.CurrentUser.Username;
+            string currentUser = null;
+            //string currentUser = LoginContext.Instance.CurrentUser.Username;
             string password = SecurityUtilities.HashSHA1(request.Password);
-            string query = $"INSERT INTO [dbo].[Accounts] ([Id],[Username],[Password], [RoleId] ,[Created] ,[CreatedBy] ,[Updated] ,[UpdatedBy] ,[Deleted] ,[Active] ,[IsAdmin]) " +
-            $"VALUES ('{Guid.NewGuid()}','{request.Username}','{password}','{RoleConstant.EndUser}', {currentDate}, '{currentUser}',{currentDate},'{currentUser}',0,1,0)";
+            string query = $"INSERT INTO [dbo].[Account] ([Username],[Password], [RoleId] ,[Created] ,[CreatedBy] ,[Updated] ,[UpdatedBy] ,[Deleted] ,[Active] ,[IsAdmin],[RoleNumberId]) " +
+            $"VALUES ('{request.Username}','{password}','{RoleConstant.EndUser}', {currentDate}, '{currentUser}',{currentDate},'{currentUser}',0,1,0,1)";
             return _unitOfWork.QueryRepository().ExecuteNonQuery(query) > 0;
         }
 
@@ -99,8 +101,9 @@ namespace Application.Services
             {
                 UserId = account.Id,
                 Username = account.Username,
-                RoleId = account.RoleId.Value,
+                RoleId = account.RoleNumberId ?? 0,
                 IsAdmin = account.IsAdmin,
+
             };
             var tokenDescriptor = new SecurityTokenDescriptor
             {

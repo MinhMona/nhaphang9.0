@@ -22,6 +22,11 @@ namespace BaseAPI.AutoMappers
         public AppAutoMapper()
         {
 
+            #region WebConfiguration
+            CreateMap<WebConfigurationModel, WebConfiguration>().ReverseMap();
+            CreateMap<WebConfigurationRequest, WebConfiguration>().ReverseMap();
+            #endregion
+
             #region Account
             CreateMap<AccountModel, Account>().ReverseMap();
             CreateMap<AccountRequest, Account>().ReverseMap();
