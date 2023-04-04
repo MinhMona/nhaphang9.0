@@ -2,6 +2,7 @@ using Application.Extensions;
 using AutoMapper;
 using BaseAPI;
 using BaseAPI.AutoMappers;
+using Domain.Entities;
 using Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

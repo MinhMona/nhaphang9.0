@@ -1,5 +1,7 @@
 ﻿using Application.Extensions;
+using Application.Services;
 using Application.Utilities;
+using AutoMapper;
 using BaseAPI.Controllers;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -8,6 +10,7 @@ using Domain.Models.DomainModels;
 using Domain.Requests;
 using Domain.Searchs;
 using Domain.Searchs.DomainSearchs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -18,19 +21,18 @@ namespace API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class WebConfigurationController : BaseController<WebConfiguration, WebConfigurationModel, WebConfigurationRequest, BaseSearch>
+    public class WebConfigurationController : ControllerBase
     {
         private readonly IWebConfigurationService _webConfigurationService;
+        private readonly IMapper _mapper;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="serviceProvider"></param>
-        /// <param name="logger"></param>
-        /// <param name="env"></param>
-        public WebConfigurationController(IServiceProvider serviceProvider, ILogger<ControllerBase> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
+        public WebConfigurationController(IServiceProvider serviceProvider)
         {
-            _domainService = serviceProvider.GetRequiredService<IWebConfigurationService>();
             _webConfigurationService = serviceProvider.GetRequiredService<IWebConfigurationService>();
+            _mapper = serviceProvider.GetRequiredService<IMapper>();
         }
 
 
@@ -38,13 +40,55 @@ namespace API.Controllers
         /// Get single WebConfiguration
         /// </summary>
         /// <returns></returns>
-        [HttpGet("get")]
+        [HttpGet("single")]
         [AppAuthorize((int)PermissionEnum.View)]
         public async Task<AppDomainResult> GetSingleAsync()
         {
+            if (!ModelState.IsValid)
+                throw new AppException(ModelState.GetErrorMessage());
             return new AppDomainResult
             {
                 Data = await _webConfigurationService.GetWebConfiguration(),
+                ResultCode = (int)HttpStatusCode.OK,
+                ResultMessage = "Webconfiguration found",
+                Success = true
+            };
+        }
+
+        /// <summary>
+        /// Get currency
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("currency")]
+        [AllowAnonymous]
+        public async Task<AppDomainResult> GetCurrencyAsync()
+        {
+            if (!ModelState.IsValid)
+                throw new AppException(ModelState.GetErrorMessage());
+            return new AppDomainResult
+            {
+                Data = await _webConfigurationService.GetCurreny(),
+                ResultCode = (int)HttpStatusCode.OK,
+                ResultMessage = "Curreny found",
+                Success = true
+            };
+        }
+
+        /// <summary>
+        /// Get single WebConfiguration
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        [AppAuthorize((int)PermissionEnum.Update)]
+        public async Task<AppDomainResult> UpdateAsync([FromBody] WebConfigurationRequest request)
+        {
+            if (!ModelState.IsValid)
+                throw new AppException(ModelState.GetErrorMessage());
+            bool success = await _webConfigurationService.UpdateAsync(request);
+
+            return new AppDomainResult
+            {
+                Data = _mapper.Map<WebConfigurationModel>(request),
                 ResultCode = (int)HttpStatusCode.OK,
                 ResultMessage = "Webconfiguration found",
                 Success = true

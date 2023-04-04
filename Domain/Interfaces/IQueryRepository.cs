@@ -12,5 +12,7 @@ namespace Domain.Interfaces
     public interface IQueryRepository
     {
         int ExecuteNonQuery(string commandText);
+        Task<object> ExcuteStoreGetValue(string commandText, SqlParameter[] sqlParameters, SqlParameter outputParameter);
+        Task<string> ExcuteStoreNoneInput(string commandText, string ouput);
     }
 }

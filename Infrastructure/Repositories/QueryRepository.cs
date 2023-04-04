@@ -38,5 +38,75 @@ namespace Infrastructure.Repositories
                     command.Dispose();
             }
         }
+        public async Task<object> ExcuteStoreGetValue(string commandText, SqlParameter[] sqlParameters, SqlParameter outputParameter)
+        {
+            return await Task.Run(() =>
+            {
+                object obj = new object();
+                DataTable dataTable = new DataTable();
+                SqlConnection connection = null;
+                SqlCommand command = null;
+                try
+                {
+                    connection = (SqlConnection)_appDbContext.Database.GetDbConnection();
+                    command = connection.CreateCommand();
+                    connection.Open();
+                    command.CommandText = commandText;
+                    if (sqlParameters != null && sqlParameters.Length > 0)
+                        command.Parameters.AddRange(sqlParameters);
+                    command.Parameters.Add(outputParameter);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    sqlDataAdapter.Fill(dataTable);
+                    var objectValue = command.Parameters[outputParameter.ParameterName].Value;
+                    if (objectValue != null)
+                        obj = objectValue;
+                    return obj;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                        connection.Close();
+
+                    if (command != null)
+                        command.Dispose();
+                }
+            });
+        }
+        public async Task<string> ExcuteStoreNoneInput(string commandText, string ouput)
+        {
+            return await Task.Run(() =>
+            {
+                object obj = new object();
+                DataTable dataTable = new DataTable();
+                SqlConnection connection = null;
+                SqlCommand command = null;
+                try
+                {
+                    connection = (SqlConnection)_appDbContext.Database.GetDbConnection();
+                    command = connection.CreateCommand();
+                    connection.Open();
+                    command.CommandText = commandText;
+                    SqlParameter outputParameter = new SqlParameter(ouput, SqlDbType.NVarChar, int.MaxValue);
+                    outputParameter.Direction = ParameterDirection.Output;
+                    command.Parameters.Add(outputParameter);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    sqlDataAdapter.Fill(dataTable);
+                    var objectValue = command.Parameters[ouput].Value;
+                    if (objectValue != null)
+                        obj = objectValue;
+                    return obj.ToString();
+                }
+                finally
+                {
+                    if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                        connection.Close();
+
+                    if (command != null)
+                        command.Dispose();
+                }
+            });
+        }
     }
 }

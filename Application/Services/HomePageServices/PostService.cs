@@ -10,63 +10,60 @@ using Domain.Requests.HomePageRequests;
 using Domain.Searchs;
 using Domain.Searchs.DomainSearchs;
 using Domain.Searchs.HomePageSearchs;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Application.Services.HomePageServices
 {
-    public class ServiceService : DomainService<Service, HomeRequest, HomeSearch>, IServiceService
+    public class PostService : DomainService<Post, PostRequest, PostSearch>, IPostService
     {
-        public ServiceService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        public PostService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
         }
         protected override string GetStoreProcName()
         {
-            return "ServicePaging";
+            return "PostPaging";
         }
 
-        public override async Task<bool> CreateAsync(HomeRequest request)
+        public override async Task<bool> CreateAsync(PostRequest request)
         {
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             await CheckName(request.Code);
             bool success = await base.CreateAsync(request);
             if (success)
             {
-                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("ServiceJson", "Service");
-                WriteDataToHomeJson.WriteData(data, "Service");
+                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("PostJson", "Post");
+                WriteDataToHomeJson.WriteData(data, "Post");
             }
             return true;
         }
 
-        public override async Task<bool> UpdateAsync(HomeRequest request)
+        public override async Task<bool> UpdateAsync(PostRequest request)
         {
-            var service = await _unitOfWork.Repository<Service>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(request.Code));
+            var post = await _unitOfWork.Repository<Post>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(request.Code));
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
-            if (!service.Code.Equals(request.Code))
+            if (!post.Code.Equals(request.Code))
                 await CheckName(request.Code);
+
             bool success = await base.UpdateAsync(request);
             if (success)
             {
-                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("ServiceJson", "Service");
-                WriteDataToHomeJson.WriteData(data, "Service");
+                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("PostJson", "Post");
+                WriteDataToHomeJson.WriteData(data, "Post");
             }
             return true;
         }
 
         private async Task CheckName(string name)
         {
-            var service = await _unitOfWork.Repository<Service>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(name));
-            if (service != null)
-                throw new AppException("Service was existed");
+            var post = await _unitOfWork.Repository<Post>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(name));
+            if (post != null)
+                throw new AppException("Post was existed");
         }
     }
 }

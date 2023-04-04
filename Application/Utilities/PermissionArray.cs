@@ -24,7 +24,7 @@ namespace Application.Utilities
          * 0 - không quyền
          */
         #region CustomerBenefit
-        public static int[,] CustomerBenefit = new int[,]
+        public static int[,] CustomerBenefit = new int[,] 
         {
             //Add  Delete  Update  View    Upload
             { 1, 1, 1, 1, 1 },
