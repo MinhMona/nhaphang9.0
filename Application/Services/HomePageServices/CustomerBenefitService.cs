@@ -33,7 +33,13 @@ namespace Application.Services.HomePageServices
         {
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             await CheckName(request.Code);
-            return await base.CreateAsync(request);
+            bool success = await base.CreateAsync(request);
+            if (success)
+            {
+                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("CustomerBenefitJson", "CustomerBenefit");
+                WriteDataToHomeJson.WriteData(data, "CustomerBenefit");
+            }
+            return true;
         }
 
         public override async Task<bool> UpdateAsync(CustomerBenefitRequest request)
@@ -42,7 +48,13 @@ namespace Application.Services.HomePageServices
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             if (!customerBenefit.Code.Equals(request.Code))
                 await CheckName(request.Code);
-            return await base.UpdateAsync(request);
+            bool success = await base.UpdateAsync(request);
+            if (success)
+            {
+                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("CustomerBenefitJson", "CustomerBenefit");
+                WriteDataToHomeJson.WriteData(data, "CustomerBenefit");
+            }
+            return true;
         }
 
         private async Task CheckName(string name)

@@ -12,9 +12,9 @@ public partial class PostCategory : BaseEntity
 
     public string? Summary { get; set; }
 
-    public int? Description { get; set; }
+    public string? Description { get; set; }
 
-    public string? SideBar { get; set; }
+    public bool? SideBar { get; set; }
 
     public string? Link { get; set; }
 
@@ -41,4 +41,6 @@ public partial class PostCategory : BaseEntity
     public string? OgtwitterImage { get; set; }
 
     public string? OgfacebookImage { get; set; }
+
+    public int? Position { get; set; }
 }

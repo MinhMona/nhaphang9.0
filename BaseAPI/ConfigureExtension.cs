@@ -28,8 +28,12 @@ namespace BaseAPI
             services.AddScoped<IStepService, StepService>();
             services.AddScoped<ICustomerTalkService, CustomerTalkService>();
             services.AddScoped<ICustomerBenefitService, CustomerBenefitService>();
+            services.AddScoped<IPostCategoryService, PostCategoryService>();
+            services.AddScoped<IPostService, PostService>();
             #endregion
             services.AddTransient<ITokenManagerService, TokenManagerService>();
+            services.AddScoped<ISearchService, SearchService>();
+
         }
 
         /// <summary>

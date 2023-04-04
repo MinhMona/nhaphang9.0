@@ -10,5 +10,6 @@ namespace Domain.Interfaces
     public interface IWebConfigurationService : IDomainService<WebConfiguration, WebConfigurationRequest, BaseSearch>
     {
         Task<WebConfigurationModel> GetWebConfiguration();
+        Task<decimal> GetCurreny();
     }
 }

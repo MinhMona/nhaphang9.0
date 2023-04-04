@@ -62,23 +62,20 @@ namespace BaseAPI.AutoMappers
             CreateMap<CustomerBenefitRequest, CustomerBenefit>().ReverseMap();
             CreateMap<PagedList<CustomerBenefitModel>, PagedList<CustomerBenefit>>().ReverseMap();
             #endregion
+
+            #region PostCategory
+            CreateMap<PostCategoryModel, PostCategory>().ReverseMap();
+            CreateMap<PostCategoryRequest, PostCategory>().ReverseMap();
+            CreateMap<PagedList<PostCategoryModel>, PagedList<PostCategory>>().ReverseMap();
+            #endregion
+
+            #region Post
+            CreateMap<PostModel, Post>().ReverseMap();
+            CreateMap<PostRequest, Post>().ReverseMap();
+            CreateMap<PagedList<PostModel>, PagedList<Post>>().ReverseMap();
+            #endregion
             #endregion
         }
     }
-    /// <summary>
-    /// Auto Mapper Profile
-    /// </summary>
-    //public class AppAutoMapper<E, M, R> : Profile where E : BaseEntity where M : BaseModel where R : BaseRequest, new()
-    //{
-    //    /// <summary>
-    //    /// Define Mapper
-    //    /// </summary>
-    //    public AppAutoMapper()
-    //    {
 
-    //        CreateMap<M, E>().ReverseMap();
-    //        CreateMap<R, E>().ReverseMap();
-    //        CreateMap<PagedList<M>, PagedList<E>>().ReverseMap();
-    //    }
-    //}
 }

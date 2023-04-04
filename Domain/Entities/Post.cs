@@ -12,11 +12,13 @@ public partial class Post : BaseEntity
 
     public string? Summary { get; set; }
 
-    public int? Description { get; set; }
+    public string? Description { get; set; }
 
-    public string? SideBar { get; set; }
+    public bool? SideBar { get; set; }
 
     public string? Link { get; set; }
+
+    public int? Position { get; set; }
 
     public Guid? CategoryId { get; set; }
 

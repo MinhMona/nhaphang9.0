@@ -65,6 +65,32 @@
             <param name="logger"></param>
             <param name="env"></param>
         </member>
+        <member name="T:API.Controllers.HomePages.PostCategoryController">
+            <summary>
+            PostCategory
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.PostCategoryController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.PostController">
+            <summary>
+            PostController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.PostController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
         <member name="T:API.Controllers.HomePages.ServiceController">
             <summary>
             Service
@@ -91,20 +117,48 @@
             <param name="logger"></param>
             <param name="env"></param>
         </member>
+        <member name="T:API.Controllers.SearchController">
+            <summary>
+            Search product
+            </summary>
+        </member>
+        <member name="M:API.Controllers.SearchController.#ctor(Domain.Interfaces.ISearchService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="searchService"></param>
+        </member>
+        <member name="M:API.Controllers.SearchController.SearchContent(Domain.Searchs.SearchRequest)">
+            <summary>
+            Search
+            </summary>
+            <param name="searchRequest"></param>
+            <returns></returns>
+        </member>
         <member name="T:API.Controllers.WebConfigurationController">
             <summary>
             WebConfigurationController
             </summary>
         </member>
-        <member name="M:API.Controllers.WebConfigurationController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:API.Controllers.WebConfigurationController.#ctor(System.IServiceProvider)">
             <summary>
             Constructor
             </summary>
             <param name="serviceProvider"></param>
-            <param name="logger"></param>
-            <param name="env"></param>
         </member>
         <member name="M:API.Controllers.WebConfigurationController.GetSingleAsync">
+            <summary>
+            Get single WebConfiguration
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.WebConfigurationController.GetCurrencyAsync">
+            <summary>
+            Get currency
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.WebConfigurationController.UpdateAsync(Domain.Requests.WebConfigurationRequest)">
             <summary>
             Get single WebConfiguration
             </summary>
