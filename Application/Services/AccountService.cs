@@ -3,6 +3,7 @@ using Application.Utilities;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Models;
 using Domain.Requests;
 using Domain.Requests.AuthRequests;
 using Domain.Searchs;
@@ -12,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Application.Services
@@ -37,7 +39,7 @@ namespace Application.Services
             request.Password = SecurityUtilities.HashSHA1(request.Password);
             return base.CreateAsync(request);
         }
-        public async Task<string> LoginAsync(string username, string password)
+        public async Task<AuthenticationModel> LoginAsync(string username, string password)
         {
             var account = await Queryable.FirstOrDefaultAsync(x => x.Username == username && !x.Deleted);
             if (account == null)
@@ -46,27 +48,32 @@ namespace Application.Services
                 throw new UnauthorizedAccessException("Account was blocked");
             if (!SecurityUtilities.HashSHA1(password).Equals(account.Password))
                 throw new UnauthorizedAccessException("Wrong password");
-            var token = this.GenerateToken(account);
-            return token;
+            return new AuthenticationModel()
+            {
+                AccessToken = this.GenerateToken(account, false),
+                RefreshToken = this.GenerateRefreshToken(account.Id.ToString())
+            };
         }
 
-        public async Task<string> RegistrationAsync(RegistrationRequest request)
+        public async Task<AuthenticationModel> RegistrationAsync(RegistrationRequest request)
         {
             var account = new Account()
             {
                 Username = request.Username,
-                RoleId = Guid.Parse(RoleConstant.EndUser),
-                RoleNumberId = 1,
+                RoleId = Guid.Parse(RoleConstant.EndUser) ,
+                RoleNumberId = (int)RoleEnum.EndUser,
                 Email = request.Email,
-                Phone = request.Phone,
-                Fullname = null
+                Phone = request.Phone
             };
             account.Password = SecurityUtilities.HashSHA1(request.Password);
             await _unitOfWork.Repository<Account>().CreateAsync(account);
             await _unitOfWork.Complete();
             _unitOfWork.Repository<Account>().Detach(account);
-            var token = this.GenerateToken(account);
-            return token;
+            return new AuthenticationModel()
+            {
+                AccessToken = this.GenerateToken(account, false),
+                RefreshToken = this.GenerateRefreshToken(account.Id.ToString())
+            };
         }
 
         public async Task<bool> HasPermission(Guid roleId, string[] roleNames)
@@ -91,7 +98,7 @@ namespace Application.Services
             return _unitOfWork.QueryRepository().ExecuteNonQuery(query) > 0;
         }
 
-        protected string GenerateToken(Account account)
+        protected string GenerateToken(Account account, bool isDev)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var appSettingsSection = _configuration.GetSection("AppSettings");
@@ -103,7 +110,7 @@ namespace Application.Services
                 Username = account.Username,
                 RoleId = account.RoleNumberId ?? 0,
                 IsAdmin = account.IsAdmin,
-
+                IsDev = isDev
             };
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -111,11 +118,87 @@ namespace Application.Services
                             {
                                 new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(loginModel))
                             }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddHours(7).AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        protected string DecryptString(string cipherText)
+        {
+            var appSettingsSection = _configuration.GetSection("AppSettings");
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = appSettings.Refresh;
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(cipherText);
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private string GenerateRefreshToken(string accountID)
+        {
+            var appSettingsSection = _configuration.GetSection("AppSettings");
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = appSettings.Refresh;
+            byte[] iv = new byte[16];
+            byte[] array;
+            accountID += "_" + DateTime.UtcNow.AddHours(7).AddDays(3).ToString();
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        {
+                            streamWriter.Write(accountID);
+                        }
+
+                        array = memoryStream.ToArray();
+                    }
+                }
+            }
+            return Convert.ToBase64String(array);
+        }
+
+        public async Task<string> RefreshAsync(string refreshToken)
+        {
+            var accountInfo = DecryptString(refreshToken).Split('_');
+            var accountID = new Guid(accountInfo[0]);
+            var exp = DateTime.Parse(accountInfo[1]);
+            if(exp >= DateTime.UtcNow.AddHours(7))
+            {
+                var account = await this.GetByIdAsync(accountID);
+                if (account == null)
+                    throw new UnauthorizedAccessException("Wrong accountID");
+                if (!account.Active)
+                    throw new UnauthorizedAccessException("Account was blocked");
+                return this.GenerateToken(account, false);
+            }
+            throw new UnauthorizedAccessException("Refresh token time out");
         }
     }
 }
