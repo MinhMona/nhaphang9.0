@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Utilities
 {
-    public class RoleConstant
+    public static class RoleConstant
     {
         public const string Admin = "10FB6B82-8E5C-4D79-AE5C-96DC946C10C6";
         public const string EndUser = "B26CA944-FF1C-43A8-AF3E-7D55E98E4692";
@@ -18,4 +18,17 @@ namespace Application.Utilities
         public const string Manager = "A77490A5-6290-42D9-9D05-82D6EE69E282";
         public const string Marketing = "8EBA0C3F-E542-44E0-B8E7-66F2725641BE";
     }
+    public  enum RoleEnum
+    {
+        Admin = 0,
+        EndUser = 1,
+        Saler = 2,
+        Ordering = 3,
+        CNWarehouse = 4,
+        VNWarehouse = 5,
+        Accountant = 6,
+        Manager = 7,
+        Marketing = 8
+    }
+
 }

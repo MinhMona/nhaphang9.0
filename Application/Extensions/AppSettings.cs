@@ -10,5 +10,6 @@ namespace Application.Extensions
     {
         public string Secret { get; set; } = string.Empty;
         public bool GrantPermissionDebug { get; set; }
+        public string Refresh { get; set;} = string.Empty;
     }
 }

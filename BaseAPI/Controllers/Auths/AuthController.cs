@@ -69,6 +69,29 @@ namespace BaseAPI.Controllers.Auths
         }
 
         /// <summary>
+        /// Refresh
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        /// <exception cref="AppException"></exception>
+
+        [AllowAnonymous]
+        [HttpPost("refresh")]
+        public async Task<AppDomainResult> RefreshAsync([FromForm] string refreshToken)
+        {
+            if (!ModelState.IsValid)
+                throw new AppException(ModelState.GetErrorMessage());
+            var token = await _accountService.RefreshAsync(refreshToken);
+            return new AppDomainResult()
+            {
+                Success = true,
+                ResultCode = (int)HttpStatusCode.OK,
+                Data = token,
+                ResultMessage = "Refresh success"
+            };
+        }
+
+        /// <summary>
         /// Registation
         /// </summary>
         /// <param name="request"></param>
