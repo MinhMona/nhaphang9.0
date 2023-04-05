@@ -1,4 +1,5 @@
 ﻿using Application.Extensions;
+using Application.Utilities;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -19,6 +20,17 @@ namespace Application.Services
         public WebConfigurationService(IUnitOfWork _unitOfWork, IMapper _mapper, IAppDbContext appDbContext) : base(_unitOfWork, _mapper)
         {
             _appDbContext = appDbContext;
+        }
+
+        public override async Task<bool> UpdateAsync(WebConfigurationRequest request)
+        {
+            bool success = await base.UpdateAsync(request);
+            if (success)
+            {
+                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("WebConfigurationJson", "WebConfiguration");
+                WriteDataToHomeJson.WriteData(data, "WebConfiguration");
+            }
+            return true;
         }
 
         public async Task<WebConfigurationModel> GetWebConfiguration()

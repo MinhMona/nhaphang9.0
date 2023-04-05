@@ -98,7 +98,7 @@ namespace BaseAPI.Controllers.Auths
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("register")]
-        public virtual async Task<AppDomainResult> RegistrationAsync([FromBody] RegistrationRequest request)
+        public virtual async Task<AppDomainResult> RegistrationAsync([FromForm] RegistrationRequest request)
         {
             if (!ModelState.IsValid)
                 throw new AppException(ModelState.GetErrorMessage());

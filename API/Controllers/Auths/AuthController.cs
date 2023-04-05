@@ -1,12 +1,5 @@
-﻿using Application.Extensions;
-using Application.Utilities;
-using AutoMapper;
-using Domain.Interfaces;
-using Domain.Requests.AuthRequests;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace API.Controllers.Auths
 {

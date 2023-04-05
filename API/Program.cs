@@ -1,4 +1,5 @@
 using Application.Extensions;
+using Application.Services.HomePageServices;
 using AutoMapper;
 using BaseAPI;
 using BaseAPI.AutoMappers;
@@ -99,11 +100,12 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 {
     loggerConfiguration
         .Enrich.FromLogContext()
-        .WriteTo.Console();
+    .WriteTo.Console();
 });
 
-var app = builder.Build();
+builder.Services.AddHostedService<HomePageService>();
 
+var app = builder.Build();
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
@@ -120,7 +122,7 @@ app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
-app.UseMiddleware<ErrorHandlerMiddleware>();
+//app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
 app.UseAuthorization();
 

@@ -44,7 +44,7 @@ namespace Application.Services.HomePageServices
 
         public override async Task<bool> UpdateAsync(HomeRequest request)
         {
-            var step = await _unitOfWork.Repository<Step>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(request.Code));
+            var step = await _unitOfWork.Repository<Step>().GetQueryable().FirstOrDefaultAsync(s => s.Id.Equals(request.Id));
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             if (!step.Code.Equals(request.Code))
                 await CheckName(request.Code);

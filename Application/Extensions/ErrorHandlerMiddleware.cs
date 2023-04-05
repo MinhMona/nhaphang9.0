@@ -82,6 +82,7 @@ namespace Application.Extensions
                     ResultMessage = error?.Message,
                     Success = false
                 });
+                
                 await response.WriteAsync(result);
             }
         }

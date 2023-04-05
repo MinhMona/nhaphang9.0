@@ -1,17 +1,15 @@
 ﻿using Application.Utilities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Extensions
 {
@@ -20,33 +18,92 @@ namespace Application.Extensions
         private readonly RequestDelegate _next;
         private readonly AppSettings _appSettings;
         private readonly ITokenManagerService tokenManagerService;
-
-        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings, ITokenManagerService tokenManagerService)
+        private ILogger<ControllerBase> _logger;
+        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings, ITokenManagerService tokenManagerService, ILogger<ControllerBase> logger)
         {
             _next = next;
+            _logger = logger;
             _appSettings = appSettings.Value;
             this.tokenManagerService = tokenManagerService;
         }
 
         public async Task Invoke(Microsoft.AspNetCore.Http.HttpContext context, IAccountService accountService)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            try
+            {
+                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (await tokenManagerService.IsCurrentActiveToken())
-            {
-                if (token != null)
-                    attachUserToContext(context, accountService, token);
-                await _next(context);
+                if (await tokenManagerService.IsCurrentActiveToken())
+                {
+                    if (token != null)
+                        attachUserToContext(context, accountService, token);
+                    await _next(context);
+                }
+                else
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    var result = System.Text.Json.JsonSerializer.Serialize(new AppDomainResult()
+                    {
+                        ResultCode = context.Response.StatusCode,
+                        Success = false
+                    });
+                    await context.Response.WriteAsync(result);
+                }
             }
-            else
+            catch (Exception error)
             {
-                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                var response = context.Response;
+                response.ContentType = "application/json";
+
+                switch (error)
+                {
+                    case AggregateException e:
+                        response.StatusCode = (int)HttpStatusCode.Locked;
+                        break;
+                    case AppException e:
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        break;
+                    case UnauthorizedAccessException e:
+                        response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        break;
+                    case InvalidCastException e:
+                        response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        break;
+                    case EntryPointNotFoundException e:
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        break;
+                    case KeyNotFoundException e:
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        break;
+                    case TimeoutException e:
+                        response.StatusCode = (int)HttpStatusCode.RequestTimeout;
+                        break;
+                    default:
+                        {
+                            var RouteData = context.Request.Path.Value.Split("/");
+                            string apiName = string.Empty;
+                            string actionName = string.Empty;
+
+                            if (RouteData.Count() >= 2)
+                                apiName = RouteData[1];
+                            if (RouteData.Count() >= 3)
+                                actionName = RouteData[2];
+
+                            _logger.LogError(string.Format("{0} {1}: {2}", apiName
+                                , actionName, error?.Message));
+                            response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        }
+
+                        break;
+                }
                 var result = System.Text.Json.JsonSerializer.Serialize(new AppDomainResult()
                 {
-                    ResultCode = context.Response.StatusCode,
+                    ResultCode = response.StatusCode,
+                    ResultMessage = error?.Message,
                     Success = false
                 });
-                await context.Response.WriteAsync(result);
+
+                await response.WriteAsync(result);
             }
         }
         private void attachUserToContext(Microsoft.AspNetCore.Http.HttpContext context, IAccountService accountService, string token)
