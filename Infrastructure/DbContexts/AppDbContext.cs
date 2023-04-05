@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,8 +39,16 @@ public partial class AppDbContext : DbContext, IAppDbContext
         {
             entity.ToTable("Account");
 
+            entity.HasIndex(e => e.Username, "username_account").IsUnique();
+
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Address).HasMaxLength(1000);
+            entity.Property(e => e.Apikey)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("APIKey");
+            entity.Property(e => e.Apisecret)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("APISecret");
             entity.Property(e => e.Cnwarehouse).HasColumnName("CNWarehouse");
             entity.Property(e => e.Currency).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.FeeBuyPro).HasColumnType("decimal(18, 0)");
@@ -54,8 +60,9 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.Password).HasMaxLength(1000);
             entity.Property(e => e.TransactionMoney).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Username)
-                .HasMaxLength(20)
-                .IsFixedLength();
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Vnwarehouse).HasColumnName("VNWarehouse");
             entity.Property(e => e.Wallet).HasColumnType("decimal(18, 0)");
         });

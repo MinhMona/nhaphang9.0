@@ -1,16 +1,28 @@
-﻿using Domain.Entities.DomainEntities;
-using System;
+using Domain.Entities.DomainEntities;using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Account : BaseEntity
+public partial class Account
+: BaseEntity
 {
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     public string? Username { get; set; }
 
     public string? Password { get; set; }
-
-    public Guid? RoleId { get; set; }
 
     public bool IsAdmin { get; set; }
 
@@ -62,5 +74,11 @@ public partial class Account : BaseEntity
 
     public string? OneSignalPlayerId { get; set; }
 
+    public Guid? RoleId { get; set; }
+
     public int? RoleNumberId { get; set; }
+
+    public Guid? Apikey { get; set; }
+
+    public Guid? Apisecret { get; set; }
 }

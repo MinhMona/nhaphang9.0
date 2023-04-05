@@ -33,29 +33,17 @@ namespace Application.Services.HomePageServices
         {
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             await CheckName(request.Code);
-            bool success = await base.CreateAsync(request);
-            if (success)
-            {
-                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("PostCategoryJson", "PostCategory");
-                WriteDataToHomeJson.WriteData(data, "PostCategory");
-            }
-            return true;
+            return await base.CreateAsync(request);
         }
 
         public override async Task<bool> UpdateAsync(PostCategoryRequest request)
         {
-            var postCategory = await _unitOfWork.Repository<PostCategory>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(request.Code));
+            var postCategory = await _unitOfWork.Repository<PostCategory>().GetQueryable().FirstOrDefaultAsync(s => s.Id.Equals(request.Id));
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             if (!postCategory.Code.Equals(request.Code))
                 await CheckName(request.Code);
 
-            bool success = await base.UpdateAsync(request);
-            if (success)
-            {
-                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("PostCategoryJson", "PostCategory");
-                WriteDataToHomeJson.WriteData(data, "PostCategory");
-            }
-            return true;
+            return  await base.UpdateAsync(request);
         }
 
         private async Task CheckName(string name)

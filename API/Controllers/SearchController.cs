@@ -29,8 +29,8 @@ namespace API.Controllers
         /// </summary>
         /// <param name="searchRequest"></param>
         /// <returns></returns>
-        [HttpPost]
-        public AppDomainResult SearchContent(SearchRequest searchRequest)
+        [HttpGet]
+        public AppDomainResult SearchContent([FromQuery]SearchRequest searchRequest)
         {
             return new AppDomainResult()
             {

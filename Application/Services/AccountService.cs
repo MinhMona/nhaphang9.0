@@ -57,23 +57,28 @@ namespace Application.Services
 
         public async Task<AuthenticationModel> RegistrationAsync(RegistrationRequest request)
         {
-            var account = new Account()
+            var account = await Queryable.FirstOrDefaultAsync(x => x.Username == request.Username && !x.Deleted);
+            if (account == null)
             {
-                Username = request.Username,
-                RoleId = Guid.Parse(RoleConstant.EndUser) ,
-                RoleNumberId = (int)RoleEnum.EndUser,
-                Email = request.Email,
-                Phone = request.Phone
-            };
-            account.Password = SecurityUtilities.HashSHA1(request.Password);
-            await _unitOfWork.Repository<Account>().CreateAsync(account);
-            await _unitOfWork.Complete();
-            _unitOfWork.Repository<Account>().Detach(account);
-            return new AuthenticationModel()
-            {
-                AccessToken = this.GenerateToken(account, false),
-                RefreshToken = this.GenerateRefreshToken(account.Id.ToString())
-            };
+                account = new Account()
+                {
+                    Username = request.Username,
+                    RoleId = Guid.Parse(RoleConstant.EndUser),
+                    RoleNumberId = (int)RoleEnum.EndUser,
+                    Email = request.Email,
+                    Phone = request.Phone
+                };
+                account.Password = SecurityUtilities.HashSHA1(request.Password);
+                await _unitOfWork.Repository<Account>().CreateAsync(account);
+                await _unitOfWork.Complete();
+                _unitOfWork.Repository<Account>().Detach(account);
+                return new AuthenticationModel()
+                {
+                    AccessToken = this.GenerateToken(account, false),
+                    RefreshToken = this.GenerateRefreshToken(account.Id.ToString())
+                };
+            }
+            throw new AppException("Username Already");
         }
 
         public async Task<bool> HasPermission(Guid roleId, string[] roleNames)

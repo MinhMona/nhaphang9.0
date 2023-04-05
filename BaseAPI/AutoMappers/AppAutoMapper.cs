@@ -74,6 +74,13 @@ namespace BaseAPI.AutoMappers
             CreateMap<PostRequest, Post>().ReverseMap();
             CreateMap<PagedList<PostModel>, PagedList<Post>>().ReverseMap();
             #endregion
+
+            #region Menu
+            CreateMap<HomeModel, Menu>().ReverseMap();
+            CreateMap<HomeRequest, Menu>().ReverseMap();
+            CreateMap<PagedList<HomeModel>, PagedList<Menu>>().ReverseMap();
+            #endregion
+
             #endregion
         }
     }

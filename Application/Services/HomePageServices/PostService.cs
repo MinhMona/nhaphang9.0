@@ -34,13 +34,7 @@ namespace Application.Services.HomePageServices
         {
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             await CheckName(request.Code);
-            bool success = await base.CreateAsync(request);
-            if (success)
-            {
-                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("PostJson", "Post");
-                WriteDataToHomeJson.WriteData(data, "Post");
-            }
-            return true;
+            return await base.CreateAsync(request);
         }
 
         public override async Task<bool> UpdateAsync(PostRequest request)
@@ -50,13 +44,7 @@ namespace Application.Services.HomePageServices
             if (!post.Code.Equals(request.Code))
                 await CheckName(request.Code);
 
-            bool success = await base.UpdateAsync(request);
-            if (success)
-            {
-                string data = await _unitOfWork.QueryRepository().ExcuteStoreNoneInput("PostJson", "Post");
-                WriteDataToHomeJson.WriteData(data, "Post");
-            }
-            return true;
+            return await base.UpdateAsync(request);
         }
 
         private async Task CheckName(string name)

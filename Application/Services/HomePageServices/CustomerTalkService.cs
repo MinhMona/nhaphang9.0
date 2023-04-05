@@ -44,7 +44,7 @@ namespace Application.Services.HomePageServices
 
         public override async Task<bool> UpdateAsync(HomeRequest request)
         {
-            var customerTalk = await _unitOfWork.Repository<CustomerTalk>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(request.Code));
+            var customerTalk = await _unitOfWork.Repository<CustomerTalk>().GetQueryable().FirstOrDefaultAsync(s => s.Id.Equals(request.Id));
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             if (!customerTalk.Code.Equals(request.Code))
                 await CheckName(request.Code);
