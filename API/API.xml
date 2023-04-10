@@ -39,6 +39,31 @@
             <param name="mapper"></param>
             <param name="logger"></param>
         </member>
+        <member name="T:API.Controllers.Files.FileController">
+            <summary>
+            FileController
+            </summary>
+        </member>
+        <member name="F:API.Controllers.Files.FileController._env">
+            <summary>
+            IWebHostEnvironment
+            </summary>
+        </member>
+        <member name="M:API.Controllers.Files.FileController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="env"></param>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="M:API.Controllers.Files.FileController.UploadFile(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Upload single file
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+            <exception cref="T:Application.Extensions.AppException"></exception>
+        </member>
         <member name="T:API.Controllers.HomePages.CustomerBenefitController">
             <summary>
             CustomerBenefit
@@ -78,6 +103,12 @@
             <param name="logger"></param>
             <param name="env"></param>
         </member>
+        <member name="M:API.Controllers.HomePages.PostCategoryController.GetPaging(Domain.Searchs.HomePageSearchs.HomeSearch)">
+            <summary>
+            Get all post category
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:API.Controllers.HomePages.PostController">
             <summary>
             PostController
@@ -90,6 +121,12 @@
             <param name="serviceProvider"></param>
             <param name="logger"></param>
             <param name="env"></param>
+        </member>
+        <member name="M:API.Controllers.HomePages.PostController.GetPaging(Domain.Searchs.HomePageSearchs.PostSearch)">
+            <summary>
+            Get all post
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:API.Controllers.HomePages.ServiceController">
             <summary>
@@ -110,6 +147,71 @@
             </summary>
         </member>
         <member name="M:API.Controllers.HomePages.StepController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.CNWarehouseController">
+            <summary>
+            CNWarehouseController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.CNWarehouseController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.ShippingTypeController">
+            <summary>
+            ShippingTypeController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.ShippingTypeController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.VNWarehouseController">
+            <summary>
+            VNWarehouseController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.VNWarehouseController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.VolumeFeeController">
+            <summary>
+            VolumeFeeController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.VolumeFeeController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.HomePages.WeightFeeController">
+            <summary>
+            WeightFeeController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.WeightFeeController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             Constructor
             </summary>

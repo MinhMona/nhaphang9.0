@@ -23,6 +23,71 @@ namespace Application.Utilities
          * 1 - có quyền; 
          * 0 - không quyền
          */
+
+        //#region Account
+        //public static int[,] Account = new int[,]
+        //{
+        //    //Add  Delete  Update  View    Upload
+        //    { 1, 1, 1, 1, 1 },
+        //    { 0, 0, 1, 1, 1 },
+        //    { 0, 0, 0, 1, 1 },
+        //    { 0, 0, 0, 1, 1 },
+        //    { 0, 0, 0, 1, 1 },
+        //    { 0, 0, 0, 1, 1 },
+        //    { 0, 0, 0, 1, 1 },
+        //    { 1, 1, 1, 1, 1 },
+        //    { 0, 0, 0, 1, 1 }
+        //};
+        //#endregion
+
+        #region Account
+        public static int[,] Account = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 }
+        };
+        #endregion
+
+        #region CNWarehouse
+        public static int[,] CNWarehouse = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
+        };
+        #endregion
+
+        #region Account
+        public static int[,] ContactUs = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
+        };
+        #endregion
+
         #region CustomerBenefit
         public static int[,] CustomerBenefit = new int[,] 
         {
@@ -55,6 +120,54 @@ namespace Application.Utilities
         };
         #endregion
 
+        #region Menu
+        public static int[,] Menu = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 }
+        };
+        #endregion
+
+        #region Post
+        public static int[,] Post = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 }
+        };
+        #endregion
+
+        #region PostCategory
+        public static int[,] PostCategory = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 }
+        };
+        #endregion
+
         #region Service
         public static int[,] Service = new int[,]
         {
@@ -68,6 +181,22 @@ namespace Application.Utilities
             { 0, 0, 0, 1, 0 },
             { 1, 1, 1, 1, 1 },
             { 1, 1, 1, 1, 1 }
+        };
+        #endregion
+
+        #region ShippingType
+        public static int[,] ShippingType = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
         };
         #endregion
 
@@ -87,19 +216,35 @@ namespace Application.Utilities
         };
         #endregion
 
-        #region Account
-        public static int[,] Account = new int[,]
+        #region VNWarehouse
+        public static int[,] VNWarehouse = new int[,]
         {
             //Add  Delete  Update  View    Upload
             { 1, 1, 1, 1, 1 },
-            { 0, 0, 1, 1, 1 },
-            { 0, 0, 0, 1, 1 },
-            { 0, 0, 0, 1, 1 },
-            { 0, 0, 0, 1, 1 },
-            { 0, 0, 0, 1, 1 },
-            { 0, 0, 0, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
             { 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 1, 1 }
+            { 0, 0, 0, 1, 0 }
+        };
+        #endregion
+
+        #region VolumeFee
+        public static int[,] VolumeFee = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
         };
         #endregion
 
@@ -119,7 +264,20 @@ namespace Application.Utilities
         };
         #endregion
 
-
-
+        #region WeightFee
+        public static int[,] WeightFee = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
+        };
+        #endregion
     }
 }

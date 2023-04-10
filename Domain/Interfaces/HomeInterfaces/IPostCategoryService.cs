@@ -6,5 +6,6 @@ namespace Domain.Interfaces.HomeInterfaces
 {
     public interface IPostCategoryService : IDomainService<PostCategory, PostCategoryRequest, HomeSearch>
     {
+        string GetAll();
     }
 }

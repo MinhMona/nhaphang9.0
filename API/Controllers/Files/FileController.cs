@@ -6,17 +6,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Files
 {
+    /// <summary>
+    /// FileController
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class FileController : ControllerBase
     {
+        /// <summary>
+        /// IWebHostEnvironment
+        /// </summary>
         protected IWebHostEnvironment _env;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="env"></param>
+        /// <param name="httpContextAccessor"></param>
         public FileController(IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             _env = env;
         }
 
+        /// <summary>
+        /// Upload single file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        /// <exception cref="AppException"></exception>
         [HttpPost("upload-file")]
+        [AppAuthorize((int)PermissionEnum.Upload)]
         public async Task<string> UploadFile(IFormFile file)
         {
             var httpContextHost = HttpContext.Request.Host;

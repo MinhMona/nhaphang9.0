@@ -20,7 +20,7 @@ namespace Domain.Entities.DomainEntities
         /// <summary>
         /// Account create
         /// </summary>
-        public string CreatedBy { get; set; } = string.Empty;
+        public string? CreatedBy { get; set; }
 
         /// <summary>
         /// Update date
@@ -30,7 +30,7 @@ namespace Domain.Entities.DomainEntities
         /// <summary>
         /// Account update
         /// </summary>
-        public string UpdatedBy { get; set; } = string.Empty;
+        public string? UpdatedBy { get; set; }
 
         /// <summary>
         /// Delete flag
@@ -42,10 +42,5 @@ namespace Domain.Entities.DomainEntities
         /// </summary>
         public bool Active { get; set; } = true;
 
-        /// <summary>
-        /// Auto increase number id
-        /// </summary>
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public int NumberId { get; set; }
     }
 }

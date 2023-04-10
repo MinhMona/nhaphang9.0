@@ -10,8 +10,6 @@ public partial class Account : BaseEntity
 
     public string? Password { get; set; }
 
-    public Guid? RoleId { get; set; }
-
     public bool IsAdmin { get; set; }
 
     public string? Fullname { get; set; }
@@ -62,5 +60,11 @@ public partial class Account : BaseEntity
 
     public string? OneSignalPlayerId { get; set; }
 
+    public Guid? RoleId { get; set; }
+
     public int? RoleNumberId { get; set; }
+
+    public Guid? Apikey { get; set; }
+
+    public Guid? Apisecret { get; set; }
 }

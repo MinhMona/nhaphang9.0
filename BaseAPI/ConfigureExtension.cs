@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Application.Services.HomePageServices;
+using Application.Services.WarehouseServicces;
 using Domain.Interfaces;
 using Domain.Interfaces.HomeInterfaces;
 using Infrastructure.DbContexts;
@@ -23,6 +24,7 @@ namespace BaseAPI
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IWebConfigurationService, WebConfigurationService>();
+
             #region HomePage
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IStepService, StepService>();
@@ -30,6 +32,14 @@ namespace BaseAPI
             services.AddScoped<ICustomerBenefitService, CustomerBenefitService>();
             services.AddScoped<IPostCategoryService, PostCategoryService>();
             services.AddScoped<IPostService, PostService>();
+            #endregion
+
+            #region Warehouse
+            services.AddScoped<ICNWarehouseService, CNWarehouseService>();
+            services.AddScoped<IVNWarehouseService, VNWarehouseService>();
+            services.AddScoped<IShippingTypeService, ShippingTypeService>();
+            services.AddScoped<IWeightFeeService, WeightFeeService>();
+            services.AddScoped<IVolumeFeeService, VolumeFeeService>();
             #endregion
             services.AddTransient<ITokenManagerService, TokenManagerService>();
             services.AddScoped<ISearchService, SearchService>();

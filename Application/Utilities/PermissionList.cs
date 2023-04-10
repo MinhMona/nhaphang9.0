@@ -11,11 +11,19 @@ namespace Application.Utilities
         public static readonly List<int[,]> Permissions = new List<int[,]>
         {
             PermissionArray.Account,
-            PermissionArray.WebConfiguration,
+            PermissionArray.CNWarehouse,
+            PermissionArray.ContactUs,
             PermissionArray.CustomerBenefit,
             PermissionArray.CustomerTalk,
+            PermissionArray.Menu,
+            PermissionArray.Post,
+            PermissionArray.PostCategory,
+            PermissionArray.Service,
             PermissionArray.Step,
-            PermissionArray.Service
+            PermissionArray.VNWarehouse,
+            PermissionArray.VolumeFee,
+            PermissionArray.WebConfiguration,
+            PermissionArray.WeightFee
         };
     }
 }

@@ -78,6 +78,14 @@
             <param name="loginRequest"></param>
             <returns></returns>
         </member>
+        <member name="M:BaseAPI.Controllers.Auths.AuthController.RefreshAsync(System.String)">
+            <summary>
+            Refresh
+            </summary>
+            <param name="refreshToken"></param>
+            <returns></returns>
+            <exception cref="T:Application.Extensions.AppException"></exception>
+        </member>
         <member name="M:BaseAPI.Controllers.Auths.AuthController.RegistrationAsync(Domain.Requests.AuthRequests.RegistrationRequest)">
             <summary>
             Registation
