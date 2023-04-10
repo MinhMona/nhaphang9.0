@@ -5,11 +5,13 @@ using Domain.Entities.DomainEntities;
 using Domain.Models;
 using Domain.Models.DomainModels;
 using Domain.Models.FeeConfigModels;
+using Domain.Models.FinanceModels;
 using Domain.Models.HomePageModels;
 using Domain.Models.WarehouseModels;
 using Domain.Requests;
 using Domain.Requests.DomainRequests;
 using Domain.Requests.FeeConfigRequests;
+using Domain.Requests.FinanceRequests;
 using Domain.Requests.HomePageRequests;
 using Domain.Requests.WarehouseRequests;
 
@@ -133,6 +135,16 @@ namespace BaseAPI.AutoMappers
             CreateMap<UserLevelModel, UserLevel>().ReverseMap();
             CreateMap<UserLevelRequest, UserLevel>().ReverseMap();
             CreateMap<PagedList<UserLevelModel>, PagedList<UserLevel>>().ReverseMap();
+            #endregion
+
+            #endregion
+
+            #region Finance
+
+            #region Bank
+            CreateMap<BankModel, Bank>().ReverseMap();
+            CreateMap<BankRequest, Bank>().ReverseMap();
+            CreateMap<PagedList<BankModel>, PagedList<Bank>>().ReverseMap();
             #endregion
 
             #endregion

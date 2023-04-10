@@ -1,9 +1,11 @@
 ﻿using Application.Services;
 using Application.Services.FeeConfigServices;
+using Application.Services.FinanceSerices;
 using Application.Services.HomePageServices;
 using Application.Services.WarehouseServicces;
 using Domain.Interfaces;
 using Domain.Interfaces.FeeConfigInterfaces;
+using Domain.Interfaces.FinanceInterfaces;
 using Domain.Interfaces.HomeInterfaces;
 using Infrastructure.DbContexts;
 using Infrastructure.Repositories;
@@ -50,6 +52,10 @@ namespace BaseAPI
             services.AddScoped<IFeeBuyProductService, FeeBuyProductService>();
             #endregion
 
+
+            #region Finance
+            services.AddScoped<IBankService, BankService>();
+            #endregion
             services.AddTransient<ITokenManagerService, TokenManagerService>();
             services.AddScoped<ISearchService, SearchService>();
 

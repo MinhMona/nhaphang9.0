@@ -103,6 +103,19 @@
             <returns></returns>
             <exception cref="T:Application.Extensions.AppException"></exception>
         </member>
+        <member name="T:API.Controllers.Finance.BankController">
+            <summary>
+            BankController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.Finance.BankController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
         <member name="T:API.Controllers.HomePages.CustomerBenefitController">
             <summary>
             CustomerBenefit

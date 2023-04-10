@@ -72,7 +72,23 @@ namespace Application.Utilities
         };
         #endregion
 
-        #region Account
+        #region Bank
+        public static int[,] Bank = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
+        };
+        #endregion
+
+        #region ContactUs
         public static int[,] ContactUs = new int[,]
         {
             //Add  Delete  Update  View    Upload

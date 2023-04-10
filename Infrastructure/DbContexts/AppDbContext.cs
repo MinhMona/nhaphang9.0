@@ -19,6 +19,8 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
+    public virtual DbSet<Bank> Banks { get; set; }
+
     public virtual DbSet<Cnwarehouse> Cnwarehouses { get; set; }
 
     public virtual DbSet<ContactU> ContactUs { get; set; }
@@ -91,6 +93,14 @@ public partial class AppDbContext : DbContext, IAppDbContext
                 .IsUnicode(false);
             entity.Property(e => e.Vnwarehouse).HasColumnName("VNWarehouse");
             entity.Property(e => e.Wallet).HasColumnType("decimal(18, 0)");
+        });
+
+        modelBuilder.Entity<Bank>(entity =>
+        {
+            entity.ToTable("Bank");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Qrimage).HasColumnName("QRImage");
         });
 
         modelBuilder.Entity<Cnwarehouse>(entity =>
