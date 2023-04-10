@@ -45,4 +45,6 @@ public partial class Post : BaseEntity
     public string? OgtwitterImage { get; set; }
 
     public string? OgfacebookImage { get; set; }
+
+    public string? Name { get; set; }
 }

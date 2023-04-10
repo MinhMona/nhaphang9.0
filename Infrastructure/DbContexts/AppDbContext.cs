@@ -8,6 +8,10 @@ namespace Infrastructure.DbContexts;
 
 public partial class AppDbContext : DbContext, IAppDbContext
 {
+    public AppDbContext()
+    {
+    }
+
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
@@ -23,6 +27,10 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<CustomerTalk> CustomerTalks { get; set; }
 
+    public virtual DbSet<FeeBuyProduct> FeeBuyProducts { get; set; }
+
+    public virtual DbSet<FeeCheckProduct> FeeCheckProducts { get; set; }
+
     public virtual DbSet<Menu> Menus { get; set; }
 
     public virtual DbSet<Post> Posts { get; set; }
@@ -37,6 +45,8 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<Step> Steps { get; set; }
 
+    public virtual DbSet<UserLevel> UserLevels { get; set; }
+
     public virtual DbSet<Vnwarehouse> Vnwarehouses { get; set; }
 
     public virtual DbSet<VolumeFee> VolumeFees { get; set; }
@@ -44,6 +54,10 @@ public partial class AppDbContext : DbContext, IAppDbContext
     public virtual DbSet<WebConfiguration> WebConfigurations { get; set; }
 
     public virtual DbSet<WeightFee> WeightFees { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=103.168.54.3;Database=nhaphangvippro;User Id=nhaphangvippro;Password=mona@123;MultipleActiveResultSets=true;Persist Security Info=true;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -106,6 +120,26 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Name).HasMaxLength(1000);
+        });
+
+        modelBuilder.Entity<FeeBuyProduct>(entity =>
+        {
+            entity.ToTable("FeeBuyProduct");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Percent).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.PriceFrom).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.PriceTo).HasColumnType("decimal(18, 0)");
+        });
+
+        modelBuilder.Entity<FeeCheckProduct>(entity =>
+        {
+            entity.ToTable("FeeCheckProduct");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.QuantityFrom).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.QuantityTo).HasColumnType("decimal(18, 0)");
         });
 
         modelBuilder.Entity<Menu>(entity =>
@@ -181,6 +215,18 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.Name).HasMaxLength(1000);
         });
 
+        modelBuilder.Entity<UserLevel>(entity =>
+        {
+            entity.ToTable("UserLevel");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.FeeBuyProDis).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.FeeShippingDis).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.MaxAccumulate).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.MinAccumulate).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.MinDeposit).HasColumnType("decimal(18, 2)");
+        });
+
         modelBuilder.Entity<Vnwarehouse>(entity =>
         {
             entity.ToTable("VNWarehouse");
@@ -196,6 +242,7 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.CnwarehouseId).HasColumnName("CNWarehouseId");
             entity.Property(e => e.CnwarehouseName).HasColumnName("CNWarehouseName");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.PriceReal).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.VnwarehouseId).HasColumnName("VNWarehouseId");
             entity.Property(e => e.VnwarehouseName).HasColumnName("VNWarehouseName");
             entity.Property(e => e.VolumeFrom).HasColumnType("decimal(18, 5)");
@@ -209,6 +256,7 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Currency).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.CurrencyPayHelp).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.CurrencyReal).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.CurrencyShip).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.FeeBuyProMin).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Gganalytics).HasColumnName("GGAnalytics");
@@ -242,6 +290,7 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.CnwarehouseId).HasColumnName("CNWarehouseId");
             entity.Property(e => e.CnwarehouseName).HasColumnName("CNWarehouseName");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.PriceReal).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.VnwarehouseId).HasColumnName("VNWarehouseId");
             entity.Property(e => e.VnwarehouseName).HasColumnName("VNWarehouseName");
             entity.Property(e => e.WeightFrom).HasColumnType("decimal(18, 2)");

@@ -104,6 +104,38 @@ namespace Application.Utilities
         };
         #endregion
 
+        #region FeeBuyProduct
+        public static int[,] FeeBuyProduct = new int[,] 
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
+        };
+        #endregion
+
+        #region FeeCheckProduct
+        public static int[,] FeeCheckProduct = new int[,] 
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
+        };
+        #endregion
+
         #region CustomerTalk
         public static int[,] CustomerTalk = new int[,]
         {
@@ -213,6 +245,22 @@ namespace Application.Utilities
             { 0, 0, 0, 1, 0 },
             { 1, 1, 1, 1, 1 },
             { 1, 1, 1, 1, 1 }
+        };
+        #endregion
+
+        #region UserLevel
+        public static int[,] UserLevel = new int[,]
+        {
+            //Add  Delete  Update  View    Upload
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0 },
+            { 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 1, 0 }
         };
         #endregion
 

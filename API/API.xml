@@ -39,6 +39,45 @@
             <param name="mapper"></param>
             <param name="logger"></param>
         </member>
+        <member name="T:API.Controllers.FeeConfigs.FeeBuyProductController">
+            <summary>
+            FeeBuyProductController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.FeeConfigs.FeeBuyProductController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.FeeConfigs.FeeCheckProductController">
+            <summary>
+            FeeCheckProductController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.FeeConfigs.FeeCheckProductController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.FeeConfigs.UserLevelController">
+            <summary>
+            UserLevelController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.FeeConfigs.UserLevelController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
         <member name="T:API.Controllers.Files.FileController">
             <summary>
             FileController

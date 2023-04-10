@@ -1,7 +1,9 @@
 ﻿using Application.Services;
+using Application.Services.FeeConfigServices;
 using Application.Services.HomePageServices;
 using Application.Services.WarehouseServicces;
 using Domain.Interfaces;
+using Domain.Interfaces.FeeConfigInterfaces;
 using Domain.Interfaces.HomeInterfaces;
 using Infrastructure.DbContexts;
 using Infrastructure.Repositories;
@@ -41,6 +43,13 @@ namespace BaseAPI
             services.AddScoped<IWeightFeeService, WeightFeeService>();
             services.AddScoped<IVolumeFeeService, VolumeFeeService>();
             #endregion
+
+            #region FeeConfig
+            services.AddScoped<IUserLevelService, UserLevelService>();
+            services.AddScoped<IFeeCheckProductService, FeeCheckProductService>();
+            services.AddScoped<IFeeBuyProductService, FeeBuyProductService>();
+            #endregion
+
             services.AddTransient<ITokenManagerService, TokenManagerService>();
             services.AddScoped<ISearchService, SearchService>();
 

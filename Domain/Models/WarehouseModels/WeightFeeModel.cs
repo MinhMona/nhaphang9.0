@@ -1,6 +1,6 @@
 ﻿using Domain.Models.DomainModels;
 
-namespace Domain.Models
+namespace Domain.Models.WarehouseModels
 {
     public class WeightFeeModel : BaseModel
     {
@@ -25,5 +25,7 @@ namespace Domain.Models
         public decimal? WeightTo { get; set; }
 
         public decimal? Price { get; set; }
+
+        public decimal? PriceReal { get; set; }
     }
 }

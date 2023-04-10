@@ -27,4 +27,6 @@ public partial class WeightFee : BaseEntity
     public decimal? WeightTo { get; set; }
 
     public decimal? Price { get; set; }
+
+    public decimal? PriceReal { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿using Domain.Models.DomainModels;
 
-namespace Domain.Models
+namespace Domain.Models.WarehouseModels
 {
     public class CNWarehouseModel : BaseModel
     {
