@@ -1,24 +1,11 @@
-using Domain.Entities.DomainEntities;using System;
+﻿using Domain.Entities.DomainEntities;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class WebConfiguration: BaseEntity
+public partial class WebConfiguration : BaseEntity
 {
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
     public decimal? Currency { get; set; }
 
     public decimal? CurrencyShip { get; set; }
@@ -134,4 +121,7 @@ public partial class WebConfiguration: BaseEntity
     public string? RestApikey { get; set; }
 
     public decimal? FeeBuyProMin { get; set; }
+
+    public decimal? CurrencyReal { get; set; }
 }
+

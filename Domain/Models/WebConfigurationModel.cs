@@ -119,5 +119,7 @@ namespace Domain.Models
         public string? RestApikey { get; set; }
 
         public decimal? FeeBuyProMin { get; set; }
+
+        public decimal? CurrencyReal { get; set; }
     }
 }

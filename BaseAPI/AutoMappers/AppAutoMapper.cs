@@ -4,9 +4,14 @@ using Domain.Entities;
 using Domain.Entities.DomainEntities;
 using Domain.Models;
 using Domain.Models.DomainModels;
+using Domain.Models.FeeConfigModels;
+using Domain.Models.FinanceModels;
 using Domain.Models.HomePageModels;
+using Domain.Models.WarehouseModels;
 using Domain.Requests;
 using Domain.Requests.DomainRequests;
+using Domain.Requests.FeeConfigRequests;
+using Domain.Requests.FinanceRequests;
 using Domain.Requests.HomePageRequests;
 using Domain.Requests.WarehouseRequests;
 
@@ -115,6 +120,38 @@ namespace BaseAPI.AutoMappers
             CreateMap<VolumeFeeModel, VolumeFeeModel>().ReverseMap();
             CreateMap<VolumeFeeRequest, VolumeFee>().ReverseMap();
             CreateMap<PagedList<VolumeFeeModel>, PagedList<VolumeFeeModel>>().ReverseMap();
+            #endregion
+
+            #endregion
+
+            #region FeeConfig
+
+            #region FeeBuyProduct
+            CreateMap<FeeBuyProductModel, FeeBuyProduct>().ReverseMap();
+            CreateMap<FeeBuyProductRequest, FeeBuyProduct>().ReverseMap();
+            CreateMap<PagedList<FeeBuyProductModel>, PagedList<FeeBuyProduct>>().ReverseMap();
+            #endregion
+
+            #region FeeCheckProduct
+            CreateMap<FeeCheckProductModel, FeeCheckProduct>().ReverseMap();
+            CreateMap<FeeCheckProductRequest, FeeCheckProduct>().ReverseMap();
+            CreateMap<PagedList<FeeCheckProductModel>, PagedList<FeeCheckProduct>>().ReverseMap();
+            #endregion
+
+            #region FeeCheckProduct
+            CreateMap<UserLevelModel, UserLevel>().ReverseMap();
+            CreateMap<UserLevelRequest, UserLevel>().ReverseMap();
+            CreateMap<PagedList<UserLevelModel>, PagedList<UserLevel>>().ReverseMap();
+            #endregion
+
+            #endregion
+
+            #region Finance
+
+            #region Bank
+            CreateMap<BankModel, Bank>().ReverseMap();
+            CreateMap<BankRequest, Bank>().ReverseMap();
+            CreateMap<PagedList<BankModel>, PagedList<Bank>>().ReverseMap();
             #endregion
 
             #endregion

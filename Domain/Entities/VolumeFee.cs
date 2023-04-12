@@ -27,4 +27,6 @@ public partial class VolumeFee : BaseEntity
     public decimal? VolumeTo { get; set; }
 
     public decimal? Price { get; set; }
+
+    public decimal? PriceReal { get; set; }
 }

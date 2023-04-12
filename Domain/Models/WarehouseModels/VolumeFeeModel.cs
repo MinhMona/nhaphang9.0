@@ -1,6 +1,6 @@
 ﻿using Domain.Models.DomainModels;
 
-namespace Domain.Models
+namespace Domain.Models.WarehouseModels
 {
     public class VolumeFeeModel : BaseModel
     {
@@ -10,7 +10,7 @@ namespace Domain.Models
 
         public Guid? VnwarehouseId { get; set; }
 
-        public string? VnwarehouseName { get; set; } 
+        public string? VnwarehouseName { get; set; }
 
         public Guid? ShippingTypeId { get; set; }
 
@@ -25,5 +25,7 @@ namespace Domain.Models
         public decimal? VolumeTo { get; set; }
 
         public decimal? Price { get; set; }
+
+        public decimal? PriceReal { get; set; }
     }
 }

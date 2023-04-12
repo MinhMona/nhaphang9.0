@@ -25,5 +25,7 @@ namespace Domain.Requests.WarehouseRequests
         public decimal? WeightTo { get; set; }
 
         public decimal? Price { get; set; }
+
+        public decimal? PriceReal { get; set; }
     }
 }

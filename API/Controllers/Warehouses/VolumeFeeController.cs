@@ -2,8 +2,8 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.HomeInterfaces;
-using Domain.Models;
 using Domain.Models.HomePageModels;
+using Domain.Models.WarehouseModels;
 using Domain.Requests.HomePageRequests;
 using Domain.Requests.WarehouseRequests;
 using Domain.Searchs.DomainSearchs;
