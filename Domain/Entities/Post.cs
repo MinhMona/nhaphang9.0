@@ -48,3 +48,4 @@ public partial class Post : BaseEntity
 
     public string? Name { get; set; }
 }
+

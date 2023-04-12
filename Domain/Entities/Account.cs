@@ -1,11 +1,25 @@
-﻿using Domain.Entities.DomainEntities;
-using System;
+using Domain.Entities.DomainEntities;using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Account : BaseEntity
+public partial class Account
+: BaseEntity
 {
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     public string? Username { get; set; }
 
     public string? Password { get; set; }

@@ -124,3 +124,4 @@ public partial class WebConfiguration : BaseEntity
 
     public decimal? CurrencyReal { get; set; }
 }
+

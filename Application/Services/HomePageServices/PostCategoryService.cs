@@ -42,6 +42,7 @@ namespace Application.Services.HomePageServices
             if (success)
                 await CachePostCategoriesAsync();
             return true;
+
         }
 
         public override async Task<bool> UpdateAsync(PostCategoryRequest request)
@@ -50,7 +51,6 @@ namespace Application.Services.HomePageServices
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             if (!postCategory.Code.Equals(request.Code))
                 await CheckName(request.Code);
-
             bool success = await base.UpdateAsync(request);
             if (success)
                 await CachePostCategoriesAsync();
