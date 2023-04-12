@@ -32,6 +32,7 @@ namespace BaseAPI
             services.AddScoped<ICustomerBenefitService, CustomerBenefitService>();
             services.AddScoped<IPostCategoryService, PostCategoryService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IMenuService, MenuService>();
             #endregion
 
             #region Warehouse
@@ -43,6 +44,7 @@ namespace BaseAPI
             #endregion
             services.AddTransient<ITokenManagerService, TokenManagerService>();
             services.AddScoped<ISearchService, SearchService>();
+            
 
         }
 

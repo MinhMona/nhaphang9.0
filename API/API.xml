@@ -90,6 +90,19 @@
             <param name="logger"></param>
             <param name="env"></param>
         </member>
+        <member name="T:API.Controllers.HomePages.MenuController">
+            <summary>
+            Service
+            </summary>
+        </member>
+        <member name="M:API.Controllers.HomePages.MenuController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
         <member name="T:API.Controllers.HomePages.PostCategoryController">
             <summary>
             PostCategory

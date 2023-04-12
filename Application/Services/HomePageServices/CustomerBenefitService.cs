@@ -44,7 +44,7 @@ namespace Application.Services.HomePageServices
 
         public override async Task<bool> UpdateAsync(CustomerBenefitRequest request)
         {
-            var customerBenefit = await _unitOfWork.Repository<CustomerBenefit>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(request.Code));
+            var customerBenefit = await _unitOfWork.Repository<CustomerBenefit>().GetQueryable().FirstOrDefaultAsync(s => s.Id.Equals(request.Id));
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             if (!customerBenefit.Code.Equals(request.Code))
                 await CheckName(request.Code);

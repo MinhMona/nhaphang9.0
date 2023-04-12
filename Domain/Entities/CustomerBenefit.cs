@@ -1,11 +1,24 @@
-﻿using Domain.Entities.DomainEntities;
-using System;
+using Domain.Entities.DomainEntities;using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class CustomerBenefit : BaseEntity
+public partial class CustomerBenefit: BaseEntity
 {
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     public string? Name { get; set; }
 
     public string? Code { get; set; }
