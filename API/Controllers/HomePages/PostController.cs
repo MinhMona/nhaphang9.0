@@ -1,6 +1,8 @@
-﻿using Application.Services.HomePageServices;
+﻿using Application.Extensions;
+using Application.Services.HomePageServices;
 using Application.Utilities;
 using BaseAPI.Controllers;
+using Domain.Common;
 using Domain.Entities;
 using Domain.Interfaces.HomeInterfaces;
 using Domain.Models.HomePageModels;
@@ -32,6 +34,25 @@ namespace API.Controllers.HomePages
         {
             _postService = serviceProvider.GetRequiredService<IPostService>();
             _domainService = _postService;
+        }
+
+        /// <summary>
+        /// Get all post
+        /// </summary>
+        /// <returns></returns>
+        public override async Task<AppDomainResult> GetPaging([FromQuery] PostSearch baseSearch)
+        {
+            if (!ModelState.IsValid)
+                throw new AppException(ModelState.GetErrorMessage());
+            return await Task.Run(() =>
+            {
+                return new AppDomainResult
+                {
+                    Data = _postService.GetPaging(baseSearch),
+                    Success = true,
+                    ResultCode = (int)HttpStatusCode.OK
+                };
+            });
         }
     }
 }

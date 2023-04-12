@@ -8,6 +8,7 @@ using Domain.Models.HomePageModels;
 using Domain.Requests;
 using Domain.Requests.DomainRequests;
 using Domain.Requests.HomePageRequests;
+using Domain.Requests.WarehouseRequests;
 
 namespace BaseAPI.AutoMappers
 {
@@ -79,6 +80,41 @@ namespace BaseAPI.AutoMappers
             CreateMap<HomeModel, Menu>().ReverseMap();
             CreateMap<HomeRequest, Menu>().ReverseMap();
             CreateMap<PagedList<HomeModel>, PagedList<Menu>>().ReverseMap();
+            #endregion
+
+            #endregion
+
+            #region Warehouse
+
+            #region CNWarehouse
+            CreateMap<CNWarehouseModel, Cnwarehouse>().ReverseMap();
+            CreateMap<CNWarehouseRequest, Cnwarehouse>().ReverseMap();
+            CreateMap<PagedList<CNWarehouseModel>, PagedList<Cnwarehouse>>().ReverseMap();
+            #endregion
+
+            #region VNWarehouse
+            CreateMap<VNWarehouseModel, Vnwarehouse>().ReverseMap();
+            CreateMap<VNWarehouseRequest, Vnwarehouse>().ReverseMap();
+            CreateMap<PagedList<VNWarehouseModel>, PagedList<Vnwarehouse>>().ReverseMap();
+
+            #endregion
+
+            #region ShippingType
+            CreateMap<ShippingTypeModel, ShippingType>().ReverseMap();
+            CreateMap<ShippingTypeRequest, ShippingType>().ReverseMap();
+            CreateMap<PagedList<ShippingTypeModel>, PagedList<ShippingType>>().ReverseMap();
+            #endregion
+
+            #region WeightFee
+            CreateMap<WeightFeeModel, WeightFee>().ReverseMap();
+            CreateMap<WeightFeeRequest, WeightFee>().ReverseMap();
+            CreateMap<PagedList<WeightFeeModel>, PagedList<WeightFee>>().ReverseMap();
+            #endregion
+
+            #region VolumeFee
+            CreateMap<VolumeFeeModel, VolumeFeeModel>().ReverseMap();
+            CreateMap<VolumeFeeRequest, VolumeFee>().ReverseMap();
+            CreateMap<PagedList<VolumeFeeModel>, PagedList<VolumeFeeModel>>().ReverseMap();
             #endregion
 
             #endregion

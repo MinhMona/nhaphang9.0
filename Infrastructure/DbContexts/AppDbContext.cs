@@ -13,6 +13,8 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
+    public virtual DbSet<Cnwarehouse> Cnwarehouses { get; set; }
+
     public virtual DbSet<ContactU> ContactUs { get; set; }
 
     public virtual DbSet<CustomerBenefit> CustomerBenefits { get; set; }
@@ -29,9 +31,17 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<Service> Services { get; set; }
 
+    public virtual DbSet<ShippingType> ShippingTypes { get; set; }
+
     public virtual DbSet<Step> Steps { get; set; }
 
+    public virtual DbSet<Vnwarehouse> Vnwarehouses { get; set; }
+
+    public virtual DbSet<VolumeFee> VolumeFees { get; set; }
+
     public virtual DbSet<WebConfiguration> WebConfigurations { get; set; }
+
+    public virtual DbSet<WeightFee> WeightFees { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -65,6 +75,13 @@ public partial class AppDbContext : DbContext, IAppDbContext
                 .IsUnicode(false);
             entity.Property(e => e.Vnwarehouse).HasColumnName("VNWarehouse");
             entity.Property(e => e.Wallet).HasColumnType("decimal(18, 0)");
+        });
+
+        modelBuilder.Entity<Cnwarehouse>(entity =>
+        {
+            entity.ToTable("CNWarehouse");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
         });
 
         modelBuilder.Entity<ContactU>(entity =>
@@ -147,12 +164,40 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.Name).HasMaxLength(1000);
         });
 
+        modelBuilder.Entity<ShippingType>(entity =>
+        {
+            entity.ToTable("ShippingType");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+        });
+
         modelBuilder.Entity<Step>(entity =>
         {
             entity.ToTable("Step");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Name).HasMaxLength(1000);
+        });
+
+        modelBuilder.Entity<Vnwarehouse>(entity =>
+        {
+            entity.ToTable("VNWarehouse");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+        });
+
+        modelBuilder.Entity<VolumeFee>(entity =>
+        {
+            entity.ToTable("VolumeFee");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CnwarehouseId).HasColumnName("CNWarehouseId");
+            entity.Property(e => e.CnwarehouseName).HasColumnName("CNWarehouseName");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.VnwarehouseId).HasColumnName("VNWarehouseId");
+            entity.Property(e => e.VnwarehouseName).HasColumnName("VNWarehouseName");
+            entity.Property(e => e.VolumeFrom).HasColumnType("decimal(18, 5)");
+            entity.Property(e => e.VolumeTo).HasColumnType("decimal(18, 5)");
         });
 
         modelBuilder.Entity<WebConfiguration>(entity =>
@@ -185,6 +230,20 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.OneSignalAppId).HasColumnName("OneSignalAppID");
             entity.Property(e => e.RestApikey).HasColumnName("RestAPIKey");
             entity.Property(e => e.WebsiteName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<WeightFee>(entity =>
+        {
+            entity.ToTable("WeightFee");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CnwarehouseId).HasColumnName("CNWarehouseId");
+            entity.Property(e => e.CnwarehouseName).HasColumnName("CNWarehouseName");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.VnwarehouseId).HasColumnName("VNWarehouseId");
+            entity.Property(e => e.VnwarehouseName).HasColumnName("VNWarehouseName");
+            entity.Property(e => e.WeightFrom).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.WeightTo).HasColumnType("decimal(18, 2)");
         });
 
         OnModelCreatingPartial(modelBuilder);

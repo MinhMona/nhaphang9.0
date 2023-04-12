@@ -84,7 +84,6 @@ namespace BaseAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [AppAuthorize((int)PermissionEnum.View)]
         public virtual async Task<AppDomainResult> GetById(Guid id)
         {
             var item = await _domainService.GetByIdAsync(id);
@@ -141,7 +140,6 @@ namespace BaseAPI.Controllers
         /// <param name="baseSearch"></param>
         /// <returns></returns>
         [HttpGet]
-        [AppAuthorize((int)PermissionEnum.View)]
         public virtual async Task<AppDomainResult> GetPaging([FromQuery] S baseSearch)
         {
             if (!ModelState.IsValid)

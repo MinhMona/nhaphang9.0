@@ -69,6 +69,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddMemoryCache(); 
 
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 var appSettings = appSettingsSection.Get<AppSettings>();
