@@ -30,7 +30,7 @@
             AuthController
             </summary>
         </member>
-        <member name="M:API.Controllers.Auths.AuthController.#ctor(System.IServiceProvider,Microsoft.Extensions.Configuration.IConfiguration,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{API.Controllers.Auths.AuthController})">
+        <member name="M:API.Controllers.Auths.AuthController.#ctor(System.IServiceProvider,Microsoft.Extensions.Configuration.IConfiguration,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{API.Controllers.Auths.AuthController},Domain.Interfaces.IBackgroundNotiQueue,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
             <summary>
             Constructor
             </summary>

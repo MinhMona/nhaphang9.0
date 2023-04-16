@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace API.Controllers.Auths
 {
@@ -17,7 +19,7 @@ namespace API.Controllers.Auths
         /// <param name="configuration"></param>
         /// <param name="mapper"></param>
         /// <param name="logger"></param>
-        public AuthController(IServiceProvider serviceProvider, IConfiguration configuration, IMapper mapper, ILogger<AuthController> logger) : base(serviceProvider, configuration, mapper, logger)
+        public AuthController(IServiceProvider serviceProvider, IConfiguration configuration, IMapper mapper, ILogger<AuthController> logger, IBackgroundNotiQueue queue, IServiceScopeFactory serviceScopeFactory) : base(serviceProvider, configuration, mapper, logger, queue, serviceScopeFactory)
         {
         }        
     }
