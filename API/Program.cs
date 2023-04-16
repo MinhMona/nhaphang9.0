@@ -1,9 +1,12 @@
 using Application.Extensions;
+using Application.Services;
+using Application.Services.BackgroundServices;
 using Application.Services.HomePageServices;
 using AutoMapper;
 using BaseAPI;
 using BaseAPI.AutoMappers;
 using Domain.Entities;
+using Domain.Interfaces;
 using Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -105,6 +108,8 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 });
 
 builder.Services.AddHostedService<HomePageService>();
+builder.Services.AddHostedService<NotificationService>();
+builder.Services.AddSingleton<IBackgroundNotiQueue, BackgroundNotiQueue>();
 
 var app = builder.Build();
 app.UseStaticFiles(new StaticFileOptions

@@ -32,6 +32,9 @@ namespace BaseAPI.Controllers.Auths
         /// </summary>
         protected IAccountService _accountService;
 
+        public IBackgroundNotiQueue _queue { get; }
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -39,12 +42,14 @@ namespace BaseAPI.Controllers.Auths
         /// <param name="configuration"></param>
         /// <param name="mapper"></param>
         /// <param name="logger"></param>
-        public AuthController(IServiceProvider serviceProvider, IConfiguration configuration, IMapper mapper, ILogger<AuthController> logger)
+        public AuthController(IServiceProvider serviceProvider, IConfiguration configuration, IMapper mapper, ILogger<AuthController> logger, IBackgroundNotiQueue queue, IServiceScopeFactory serviceScopeFactory)
         {
             _logger = logger;
             _configuration = configuration;
             _mapper = mapper;
             _accountService = serviceProvider.GetRequiredService<IAccountService>();
+            _queue = queue;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         /// <summary>
@@ -59,6 +64,7 @@ namespace BaseAPI.Controllers.Auths
             if (!ModelState.IsValid)
                 throw new AppException(ModelState.GetErrorMessage());
             var token = await _accountService.LoginAsync(loginRequest.Username, loginRequest.Password);
+            _queue.SendNoti(_serviceScopeFactory);
             return new AppDomainResult()
             {
                 Success = true,

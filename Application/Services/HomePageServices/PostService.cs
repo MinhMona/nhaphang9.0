@@ -50,7 +50,7 @@ namespace Application.Services.HomePageServices
 
         public override async Task<bool> UpdateAsync(PostRequest request)
         {
-            var post = await _unitOfWork.Repository<Post>().GetQueryable().FirstOrDefaultAsync(s => s.Code.Equals(request.Code));
+            var post = await _unitOfWork.Repository<Post>().GetQueryable().FirstOrDefaultAsync(s => s.Id.Equals(request.Id));
             request.Code = ConvertNameToCode.ConvertToSlug(request.Name);
             if (!post.Code.Equals(request.Code))
                 await CheckName(request.Code);
