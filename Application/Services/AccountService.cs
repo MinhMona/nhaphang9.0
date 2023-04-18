@@ -39,6 +39,24 @@ namespace Application.Services
             request.Password = SecurityUtilities.HashSHA1(request.Password);
             return base.CreateAsync(request);
         }
+        public override Task<bool> UpdateAsync(AccountRequest request)
+        {
+            request.Password = SecurityUtilities.HashSHA1(request.Password);
+            return base.UpdateAsync(request);
+        }
+
+        public async Task<bool> InsertUser(AccountRequest request)
+        {
+            var account = await Queryable.FirstOrDefaultAsync(x => x.Username == request.Username && !x.Deleted);
+            double currentDate = Timestamp.Now();
+            string currentUser = null;
+            //string currentUser = LoginContext.Instance.CurrentUser.Username;
+            string password = SecurityUtilities.HashSHA1(request.Password);
+            string query = $"INSERT INTO [dbo].[Account] ([Username],[Password], [RoleId] ,[Created] ,[CreatedBy] ,[Updated] ,[UpdatedBy] ,[Deleted] ,[Active] ,[IsAdmin],[RoleNumberId]) " +
+            $"VALUES ('{request.Username}','{password}','{RoleConstant.EndUser}', {currentDate}, '{currentUser}',{currentDate},'{currentUser}',0,1,0,1)";
+            return _unitOfWork.QueryRepository().ExecuteNonQuery(query) > 0;
+        }
+
         public async Task<AuthenticationModel> LoginAsync(string username, string password)
         {
             var account = await Queryable.FirstOrDefaultAsync(x => x.Username == username && !x.Deleted);
@@ -89,18 +107,6 @@ namespace Application.Services
             if (roleNames.Contains(role.Name))
                 return true;
             return false;
-        }
-
-        public async Task<bool> InsertUser(AccountRequest request)
-        {
-            var account = await Queryable.FirstOrDefaultAsync(x => x.Username == request.Username && !x.Deleted);
-            double currentDate = Timestamp.Now();
-            string currentUser = null;
-            //string currentUser = LoginContext.Instance.CurrentUser.Username;
-            string password = SecurityUtilities.HashSHA1(request.Password);
-            string query = $"INSERT INTO [dbo].[Account] ([Username],[Password], [RoleId] ,[Created] ,[CreatedBy] ,[Updated] ,[UpdatedBy] ,[Deleted] ,[Active] ,[IsAdmin],[RoleNumberId]) " +
-            $"VALUES ('{request.Username}','{password}','{RoleConstant.EndUser}', {currentDate}, '{currentUser}',{currentDate},'{currentUser}',0,1,0,1)";
-            return _unitOfWork.QueryRepository().ExecuteNonQuery(query) > 0;
         }
 
         protected string GenerateToken(Account account, bool isDev)
@@ -156,7 +162,6 @@ namespace Application.Services
                 }
             }
         }
-
 
         private string GenerateRefreshToken(string accountID)
         {
