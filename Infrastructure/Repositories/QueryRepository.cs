@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Application.Utilities;
+using Domain.Interfaces;
 using Infrastructure.DbContexts;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -107,6 +108,42 @@ namespace Infrastructure.Repositories
                         command.Dispose();
                 }
             });
+        }
+        public async Task<string> ExcuteStoreGetJsonData(string commandText, SqlParameter[] sqlParameters)
+        {
+            return await Task.Run(() =>
+            {
+                SqlData obj = new SqlData();
+                DataTable dataTable = new DataTable();
+                SqlConnection connection = null;
+                SqlCommand command = null;
+                try
+                {
+                    connection = (SqlConnection)_appDbContext.Database.GetDbConnection();
+                    command = connection.CreateCommand();
+                    connection.Open();
+                    command.CommandText = commandText;
+                    command.Parameters.AddRange(sqlParameters);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    sqlDataAdapter.Fill(dataTable);
+                    obj = MappingDataTable.ConvertToList<SqlData>(dataTable).FirstOrDefault();
+                    return obj.Data.ToString();
+                }
+                finally
+                {
+                    if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                        connection.Close();
+
+                    if (command != null)
+                        command.Dispose();
+                }
+            });
+        }
+
+        public class SqlData
+        {
+            public string Data { get; set; }
         }
     }
 }

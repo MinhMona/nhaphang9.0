@@ -1,11 +1,24 @@
-﻿using Domain.Entities.DomainEntities;
-using System;
+using Domain.Entities.DomainEntities;using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Cnwarehouse : BaseEntity
+public partial class Cnwarehouse: BaseEntity
 {
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     public string? Code { get; set; }
 
     public string? Name { get; set; }

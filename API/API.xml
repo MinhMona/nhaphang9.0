@@ -25,6 +25,14 @@
             <returns></returns>
             <exception cref="T:Application.Extensions.AppException"></exception>
         </member>
+        <member name="M:API.Controllers.AccountController.GetPagingJson(Domain.Searchs.AccountSearch)">
+            <summary>
+            Get paging json
+            </summary>
+            <param name="baseSearch"></param>
+            <returns></returns>
+            <exception cref="T:Application.Extensions.AppException"></exception>
+        </member>
         <member name="T:API.Controllers.Auths.AuthController">
             <summary>
             AuthController
@@ -38,6 +46,16 @@
             <param name="configuration"></param>
             <param name="mapper"></param>
             <param name="logger"></param>
+        </member>
+        <member name="T:API.Controllers.ComissionController">
+            <summary>
+            Commission
+            </summary>
+        </member>
+        <member name="M:API.Controllers.ComissionController.#ctor(System.IServiceProvider)">
+            <summary>
+            Contructor
+            </summary>
         </member>
         <member name="T:API.Controllers.FeeConfigs.FeeBuyProductController">
             <summary>
@@ -103,18 +121,39 @@
             <returns></returns>
             <exception cref="T:Application.Extensions.AppException"></exception>
         </member>
-        <member name="T:API.Controllers.Finance.BankController">
+        <member name="T:API.Controllers.Finances.BankController">
             <summary>
             BankController
             </summary>
         </member>
-        <member name="M:API.Controllers.Finance.BankController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:API.Controllers.Finances.BankController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             Constructor
             </summary>
             <param name="serviceProvider"></param>
             <param name="logger"></param>
             <param name="env"></param>
+        </member>
+        <member name="T:API.Controllers.Finances.RechargeController">
+            <summary>
+            RechargeController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.Finances.RechargeController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:API.Controllers.Finances.RechargeController.GetPagingJson(Domain.Searchs.FinanceSearchs.RechargeSearch)">
+            <summary>
+            Get paging json
+            </summary>
+            <param name="baseSearch"></param>
+            <returns></returns>
+            <exception cref="T:Application.Extensions.AppException"></exception>
         </member>
         <member name="T:API.Controllers.HomePages.CustomerBenefitController">
             <summary>

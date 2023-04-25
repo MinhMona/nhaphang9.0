@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,10 +8,6 @@ namespace Infrastructure.DbContexts;
 
 public partial class AppDbContext : DbContext, IAppDbContext
 {
-    public AppDbContext()
-    {
-    }
-
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
@@ -20,6 +18,8 @@ public partial class AppDbContext : DbContext, IAppDbContext
     public virtual DbSet<Bank> Banks { get; set; }
 
     public virtual DbSet<Cnwarehouse> Cnwarehouses { get; set; }
+
+    public virtual DbSet<Commission> Commissions { get; set; }
 
     public virtual DbSet<ContactU> ContactUs { get; set; }
 
@@ -33,9 +33,17 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<Menu> Menus { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
+    public virtual DbSet<NotificationSetting> NotificationSettings { get; set; }
+
+    public virtual DbSet<NotificationSettingDetail> NotificationSettingDetails { get; set; }
+
     public virtual DbSet<Post> Posts { get; set; }
 
     public virtual DbSet<PostCategory> PostCategories { get; set; }
+
+    public virtual DbSet<Recharge> Recharges { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -51,13 +59,11 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<VolumeFee> VolumeFees { get; set; }
 
+    public virtual DbSet<WalletHistory> WalletHistories { get; set; }
+
     public virtual DbSet<WebConfiguration> WebConfigurations { get; set; }
 
     public virtual DbSet<WeightFee> WeightFees { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=103.168.54.3;Database=nhaphangvippro;User Id=nhaphangvippro;Password=mona@123;MultipleActiveResultSets=true;Persist Security Info=true;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -106,6 +112,15 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.ToTable("CNWarehouse");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+        });
+
+        modelBuilder.Entity<Commission>(entity =>
+        {
+            entity.ToTable("Commission");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Percent).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.ReceivedPrice).HasColumnType("decimal(18, 0)");
         });
 
         modelBuilder.Entity<ContactU>(entity =>
@@ -158,6 +173,42 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.Name).HasMaxLength(1000);
         });
 
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Notification");
+
+            entity.Property(e => e.CreatedBy).HasMaxLength(50);
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.IsRead)
+                .IsRequired()
+                .HasDefaultValueSql("(CONVERT([bit],(0)))");
+            entity.Property(e => e.OfEmployee)
+                .IsRequired()
+                .HasDefaultValueSql("(CONVERT([bit],(0)))");
+            entity.Property(e => e.Uid).HasColumnName("UID");
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<NotificationSetting>(entity =>
+        {
+            entity.ToTable("NotificationSetting");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedBy).HasMaxLength(50);
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<NotificationSettingDetail>(entity =>
+        {
+            entity.ToTable("NotificationSettingDetail");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedBy).HasMaxLength(50);
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Post>(entity =>
         {
             entity.ToTable("Post");
@@ -190,6 +241,15 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.OgtwitterTitle).HasColumnName("OGTwitterTitle");
             entity.Property(e => e.Ogurl).HasColumnName("OGUrl");
             entity.Property(e => e.Title).HasMaxLength(1000);
+        });
+
+        modelBuilder.Entity<Recharge>(entity =>
+        {
+            entity.ToTable("Recharge");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Uid).HasColumnName("UId");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -257,6 +317,16 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.VolumeTo).HasColumnType("decimal(18, 5)");
         });
 
+        modelBuilder.Entity<WalletHistory>(entity =>
+        {
+            entity.ToTable("WalletHistory");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Uid).HasColumnName("UId");
+            entity.Property(e => e.Wallet).HasColumnType("decimal(18, 0)");
+        });
+
         modelBuilder.Entity<WebConfiguration>(entity =>
         {
             entity.ToTable("WebConfiguration");
@@ -266,6 +336,7 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.CurrencyPayHelp).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.CurrencyReal).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.CurrencyShip).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.DevTelegramGroup).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.FeeBuyProMin).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Gganalytics).HasColumnName("GGAnalytics");
             entity.Property(e => e.Ggmap).HasColumnName("GGMap");

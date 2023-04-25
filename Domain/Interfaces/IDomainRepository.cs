@@ -23,6 +23,6 @@ namespace Domain.Interfaces
         Task<E> ExcuteQueryGetByIdAsync(string commandText, SqlParameter sqlParameter);
         Task<IList<E>> ExcuteStoreAsync(string commandText, SqlParameter[] sqlParameters);
         //Task<object> ExcuteStoreGetValue(string commandText, SqlParameter[] sqlParameters, string outputName);
-        //Task<bool> UpdateFieldsSaveAsync(E entity, params Expression<Func<E, object>>[] includeProperties);
+        Task<bool> UpdateFieldsSaveAsync(E entity, params Expression<Func<E, object>>[] includeProperties);
     }
 }

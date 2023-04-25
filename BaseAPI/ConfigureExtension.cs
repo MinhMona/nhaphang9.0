@@ -25,9 +25,13 @@ namespace BaseAPI
         /// <param name="services"></param>
         public static void ConfigureService(this IServiceCollection services)
         {
+            services.AddScoped<IWebConfigurationService, WebConfigurationService>();
+
+            #region Manager Account
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<IWebConfigurationService, WebConfigurationService>();
+            services.AddScoped<ICommissionService, CommissionService>();
+            #endregion
 
             #region HomePage
             services.AddScoped<IServiceService, ServiceService>();
@@ -53,13 +57,13 @@ namespace BaseAPI
             services.AddScoped<IFeeBuyProductService, FeeBuyProductService>();
             #endregion
 
-
             #region Finance
             services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IRechargeService, RechargeService>();
             #endregion
             services.AddTransient<ITokenManagerService, TokenManagerService>();
             services.AddScoped<ISearchService, SearchService>();
-            
+
 
         }
 

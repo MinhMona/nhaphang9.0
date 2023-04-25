@@ -11,7 +11,7 @@ using Domain.Searchs.FeeConfigSearchs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.Finance
+namespace API.Controllers.Finances
 {
     /// <summary>
     /// BankController

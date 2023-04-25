@@ -45,6 +45,11 @@ namespace Application.Services
             return base.UpdateAsync(request);
         }
 
+        public async Task<string> GetDataJson(AccountSearch search)
+        {
+            string data = await this.GetJson("AccountPaging", search);
+            return data;
+        }
         public async Task<bool> InsertUser(AccountRequest request)
         {
             var account = await Queryable.FirstOrDefaultAsync(x => x.Username == request.Username && !x.Deleted);
@@ -199,7 +204,7 @@ namespace Application.Services
             var accountInfo = DecryptString(refreshToken).Split('_');
             var accountID = new Guid(accountInfo[0]);
             var exp = DateTime.Parse(accountInfo[1]);
-            if(exp >= DateTime.UtcNow.AddHours(7))
+            if (exp >= DateTime.UtcNow.AddHours(7))
             {
                 var account = await this.GetByIdAsync(accountID);
                 if (account == null)

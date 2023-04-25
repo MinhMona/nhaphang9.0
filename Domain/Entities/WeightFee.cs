@@ -1,11 +1,24 @@
-﻿using Domain.Entities.DomainEntities;
-using System;
+using Domain.Entities.DomainEntities;using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class WeightFee : BaseEntity
+public partial class WeightFee: BaseEntity
 {
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     public Guid? CnwarehouseId { get; set; }
 
     public string? CnwarehouseName { get; set; }

@@ -33,10 +33,20 @@ namespace BaseAPI.AutoMappers
             CreateMap<WebConfigurationRequest, WebConfiguration>().ReverseMap();
             #endregion
 
+            #region Manager Account
+
             #region Account
             CreateMap<AccountModel, Account>().ReverseMap();
             CreateMap<AccountRequest, Account>().ReverseMap();
             CreateMap<PagedList<AccountModel>, PagedList<Account>>().ReverseMap();
+            #endregion
+
+            #region Commission
+            CreateMap<CommissionModel, Commission>().ReverseMap();
+            CreateMap<CommissionRequest, Commission>().ReverseMap();
+            CreateMap<PagedList<CommissionModel>, PagedList<Commission>>().ReverseMap();
+            #endregion
+
             #endregion
 
             #region Role
@@ -152,6 +162,12 @@ namespace BaseAPI.AutoMappers
             CreateMap<BankModel, Bank>().ReverseMap();
             CreateMap<BankRequest, Bank>().ReverseMap();
             CreateMap<PagedList<BankModel>, PagedList<Bank>>().ReverseMap();
+            #endregion
+
+            #region Recharge
+            CreateMap<RechargeModel, Recharge>().ReverseMap();
+            CreateMap<RechargeRequest, Recharge>().ReverseMap();
+            CreateMap<PagedList<RechargeModel>, PagedList<Recharge>>().ReverseMap();
             #endregion
 
             #endregion
