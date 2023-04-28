@@ -170,6 +170,12 @@ namespace BaseAPI.AutoMappers
             CreateMap<PagedList<RechargeModel>, PagedList<Recharge>>().ReverseMap();
             #endregion
 
+            #region WithDraw
+            CreateMap<WithDrawModel, WithDraw>().ReverseMap();
+            CreateMap<WithDrawRequest, WithDraw>().ReverseMap();
+            CreateMap<PagedList<WithDrawModel>, PagedList<WithDraw>>().ReverseMap();
+            #endregion
+
             #endregion
         }
     }

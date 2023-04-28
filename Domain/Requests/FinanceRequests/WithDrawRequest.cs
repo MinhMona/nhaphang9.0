@@ -7,21 +7,20 @@ using System.Threading.Tasks;
 
 namespace Domain.Requests.FinanceRequests
 {
-    public class RechargeRequest : BaseRequest
+    public class WithDrawRequest : BaseRequest
     {
         public Guid? Uid { get; set; }
 
-        public Guid? BankId { get; set; }
-
         public decimal? Amount { get; set; }
 
-        public string? Content { get; set; }
+        public string? BankNumber { get; set; }
 
-        /// <summary>
-        /// 0: Chưa duyệt; 1: Đã duyệt; 2: Hủy 
-        /// </summary>
+        public string? Bank { get; set; }
+
         public int? Status { get; set; }
 
         public string? Username { get; set; }
+
+        public string? Content { get; set; }
     }
 }

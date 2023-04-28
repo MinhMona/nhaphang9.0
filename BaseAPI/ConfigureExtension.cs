@@ -60,6 +60,7 @@ namespace BaseAPI
             #region Finance
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<IRechargeService, RechargeService>();
+            services.AddScoped<IWithDrawService, WithDrawService>();
             #endregion
             services.AddTransient<ITokenManagerService, TokenManagerService>();
             services.AddScoped<ISearchService, SearchService>();

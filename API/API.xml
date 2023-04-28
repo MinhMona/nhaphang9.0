@@ -155,6 +155,27 @@
             <returns></returns>
             <exception cref="T:Application.Extensions.AppException"></exception>
         </member>
+        <member name="T:API.Controllers.Finances.WithDrawController">
+            <summary>
+            WithDrawController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.Finances.WithDrawController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.ControllerBase},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="logger"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:API.Controllers.Finances.WithDrawController.GetPagingJson(Domain.Searchs.FinanceSearchs.RechargeSearch)">
+            <summary>
+            Get paging json
+            </summary>
+            <param name="baseSearch"></param>
+            <returns></returns>
+            <exception cref="T:Application.Extensions.AppException"></exception>
+        </member>
         <member name="T:API.Controllers.HomePages.CustomerBenefitController">
             <summary>
             CustomerBenefit

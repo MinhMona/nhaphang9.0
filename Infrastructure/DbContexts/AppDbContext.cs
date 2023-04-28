@@ -65,6 +65,8 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<WeightFee> WeightFees { get; set; }
 
+    public virtual DbSet<WithDraw> WithDraws { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
@@ -248,7 +250,7 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.ToTable("Recharge");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Uid).HasColumnName("UId");
         });
 
@@ -374,6 +376,25 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.VnwarehouseName).HasColumnName("VNWarehouseName");
             entity.Property(e => e.WeightFrom).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.WeightTo).HasColumnType("decimal(18, 2)");
+        });
+
+        modelBuilder.Entity<WithDraw>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_WidthDraw");
+
+            entity.ToTable("WithDraw");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Bank).HasMaxLength(100);
+            entity.Property(e => e.BankNumber)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Content).HasMaxLength(1000);
+            entity.Property(e => e.CreatedBy).HasMaxLength(30);
+            entity.Property(e => e.Uid).HasColumnName("UId");
+            entity.Property(e => e.UpdatedBy).HasMaxLength(30);
+            entity.Property(e => e.Username).HasMaxLength(30);
         });
 
         OnModelCreatingPartial(modelBuilder);

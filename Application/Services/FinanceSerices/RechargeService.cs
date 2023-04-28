@@ -27,7 +27,7 @@ namespace Application.Services.FinanceSerices
 
         protected override string GetStoreProcName()
         {
-            return "RechargPaging";
+            return "RechargePaging";
         }
 
         public override async Task<bool> CreateAsync(RechargeRequest request)
@@ -43,18 +43,20 @@ namespace Application.Services.FinanceSerices
                         var user = await _unitOfWork.Repository<Account>().GetQueryable().FirstOrDefaultAsync(x => x.Id == request.Uid);
                         if (user == null)
                             throw new KeyNotFoundException("Account not found");
-                        decimal userWallet = (user.Wallet ?? 0) + (request.Price ?? 0);
+                        decimal userWallet = (user.Wallet ?? 0) + (request.Amount ?? 0);
                         user.Wallet = userWallet;
                         await _unitOfWork.Repository<Account>().UpdateFieldsSaveAsync(user, new Expression<Func<Account, object>>[]
                         {
-                            x => x.Wallet
+                            x => x.Wallet,
+                            x => x.Updated,
+                            x => x.UpdatedBy
                         });
 
                         WalletHistory walletHistory = new WalletHistory()
                         {
                             Uid = request.Uid,
                             Type = (int)WalletHistoryType.AdminRecharge,
-                            Price = request.Price,
+                            Price = request.Amount,
                             Wallet = userWallet,
                             Content = request.Content,
                         };
@@ -93,17 +95,19 @@ namespace Application.Services.FinanceSerices
                             var user = await _unitOfWork.Repository<Account>().GetQueryable().FirstOrDefaultAsync(x => x.Id == request.Uid);
                             if (user == null)
                                 throw new KeyNotFoundException("Account not found");
-                            decimal userWallet = (user.Wallet ?? 0) + (request.Price ?? 0);
+                            decimal userWallet = (user.Wallet ?? 0) + (request.Amount ?? 0);
                             user.Wallet = userWallet;
                             await _unitOfWork.Repository<Account>().UpdateFieldsSaveAsync(user, new Expression<Func<Account, object>>[]
                             {
-                                x => x.Wallet
+                                x => x.Wallet,
+                                x => x.Updated,
+                                x => x.UpdatedBy
                             });
                             WalletHistory walletHistory = new WalletHistory()
                             {
                                 Uid = request.Uid,
                                 Type = (int)WalletHistoryType.Recharge,
-                                Price = request.Price,
+                                Price = request.Amount,
                                 Wallet = userWallet,
                                 Content = request.Content,
                             };
@@ -114,7 +118,9 @@ namespace Application.Services.FinanceSerices
                     }
                     await _unitOfWork.Repository<Recharge>().UpdateFieldsSaveAsync(_mapper.Map<Recharge>(request), new Expression<Func<Recharge, object>>[]
                     {
-                        x => x.Status
+                        x => x.Status,
+                        x => x.Updated,
+                        x => x.UpdatedBy
                     });
                     await _unitOfWork.Complete();
                     await dbContextTransaction.CommitAsync();

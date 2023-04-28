@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.FinanceModels
 {
-    public class RechargeModel : BaseModel
+    public class WithDrawModel : BaseModel
     {
         public Guid? Uid { get; set; }
 
-        public Guid? BankId { get; set; }
+        public string? BankNumber { get; set; }
+
+        public string? Bank { get; set; }
 
         public decimal? Amount { get; set; }
 
