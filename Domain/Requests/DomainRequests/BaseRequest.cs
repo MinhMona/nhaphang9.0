@@ -11,16 +11,16 @@ namespace Domain.Requests.DomainRequests
         /// <summary>
         /// Khóa chính
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         /// <summary>
         /// Cờ check xóa
         /// </summary>
-        public bool Deleted { get; set; } = false;
+        public bool? Deleted { get; set; } = false;
 
         /// <summary>
         /// Cờ active
         /// </summary>
-        public bool Active { get; set; } = true;
+        public bool? Active { get; set; } = true;
     }
 }

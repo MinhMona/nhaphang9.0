@@ -139,7 +139,8 @@ app.UseSwagger();
 
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BaseSource");
+    c.SwaggerEndpoint("../swagger/v1/swagger.json", "BaseSource");
+    c.InjectStylesheet("../css/swagger.min.css");
     c.RoutePrefix = "docs";
 });
 

@@ -3,12 +3,14 @@ using Domain.Common;
 using Domain.Entities;
 using Domain.Entities.DomainEntities;
 using Domain.Models;
+using Domain.Models.CartModels;
 using Domain.Models.DomainModels;
 using Domain.Models.FeeConfigModels;
 using Domain.Models.FinanceModels;
 using Domain.Models.HomePageModels;
 using Domain.Models.WarehouseModels;
 using Domain.Requests;
+using Domain.Requests.CartRequests;
 using Domain.Requests.DomainRequests;
 using Domain.Requests.FeeConfigRequests;
 using Domain.Requests.FinanceRequests;
@@ -174,6 +176,22 @@ namespace BaseAPI.AutoMappers
             CreateMap<WithDrawModel, WithDraw>().ReverseMap();
             CreateMap<WithDrawRequest, WithDraw>().ReverseMap();
             CreateMap<PagedList<WithDrawModel>, PagedList<WithDraw>>().ReverseMap();
+            #endregion
+
+            #endregion
+
+            #region Cart
+
+            #region OrderShopTemp
+            CreateMap<OrderShopTempModel, OrderShopTemp>().ReverseMap();
+            CreateMap<OrderShopTempRequest, OrderShopTemp>().ReverseMap();
+            CreateMap<PagedList<OrderShopTempModel>, PagedList<OrderShopTemp>>().ReverseMap();
+            #endregion
+
+            #region OrderTemp
+            CreateMap<OrderTempModel, OrderTemp>().ReverseMap();
+            CreateMap<OrderTempRequest, OrderTemp>().ReverseMap();
+            CreateMap<PagedList<OrderTempModel>, PagedList<OrderTemp>>().ReverseMap();
             #endregion
 
             #endregion

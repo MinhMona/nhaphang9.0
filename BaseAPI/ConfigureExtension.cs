@@ -1,9 +1,11 @@
 ﻿using Application.Services;
+using Application.Services.CartServices;
 using Application.Services.FeeConfigServices;
 using Application.Services.FinanceSerices;
 using Application.Services.HomePageServices;
 using Application.Services.WarehouseServicces;
 using Domain.Interfaces;
+using Domain.Interfaces.CartInterfaces;
 using Domain.Interfaces.FeeConfigInterfaces;
 using Domain.Interfaces.FinanceInterfaces;
 using Domain.Interfaces.HomeInterfaces;
@@ -62,6 +64,12 @@ namespace BaseAPI
             services.AddScoped<IRechargeService, RechargeService>();
             services.AddScoped<IWithDrawService, WithDrawService>();
             #endregion
+
+            #region Cart
+            services.AddScoped<IOrderShopTempService, OrderShopTempService>();
+            services.AddScoped<IOrderTempService, OrderTempService>();
+            #endregion
+
             services.AddTransient<ITokenManagerService, TokenManagerService>();
             services.AddScoped<ISearchService, SearchService>();
 

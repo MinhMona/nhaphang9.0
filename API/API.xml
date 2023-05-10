@@ -47,6 +47,24 @@
             <param name="mapper"></param>
             <param name="logger"></param>
         </member>
+        <member name="T:API.Controllers.Carts.OrderShopTempController">
+            <summary>
+            OrderShopTempController
+            </summary>
+        </member>
+        <member name="M:API.Controllers.Carts.OrderShopTempController.#ctor(System.IServiceProvider)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:API.Controllers.Carts.OrderShopTempController.CreateAsync(Domain.Requests.CartRequests.OrderShopTempRequest)">
+            <summary>
+            Create
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+            <exception cref="T:Application.Extensions.AppException"></exception>
+        </member>
         <member name="T:API.Controllers.ComissionController">
             <summary>
             Commission

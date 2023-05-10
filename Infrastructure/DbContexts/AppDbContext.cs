@@ -39,6 +39,10 @@ public partial class AppDbContext : DbContext, IAppDbContext
 
     public virtual DbSet<NotificationSettingDetail> NotificationSettingDetails { get; set; }
 
+    public virtual DbSet<OrderShopTemp> OrderShopTemps { get; set; }
+
+    public virtual DbSet<OrderTemp> OrderTemps { get; set; }
+
     public virtual DbSet<Post> Posts { get; set; }
 
     public virtual DbSet<PostCategory> PostCategories { get; set; }
@@ -209,6 +213,26 @@ public partial class AppDbContext : DbContext, IAppDbContext
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.CreatedBy).HasMaxLength(50);
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<OrderShopTemp>(entity =>
+        {
+            entity.ToTable("OrderShopTemp");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.ItemId).HasColumnName("ItemID");
+            entity.Property(e => e.SellerId).HasColumnName("SellerID");
+            entity.Property(e => e.ShopId).HasColumnName("ShopID");
+            entity.Property(e => e.Site).HasMaxLength(100);
+            entity.Property(e => e.Uid).HasColumnName("UId");
+        });
+
+        modelBuilder.Entity<OrderTemp>(entity =>
+        {
+            entity.ToTable("OrderTemp");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.SkuId).HasColumnName("SkuID");
         });
 
         modelBuilder.Entity<Post>(entity =>

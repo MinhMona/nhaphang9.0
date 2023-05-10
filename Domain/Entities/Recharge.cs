@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Recharge
-: BaseEntity
+public partial class Recharge: BaseEntity
 {
     
 
