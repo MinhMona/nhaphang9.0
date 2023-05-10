@@ -3,12 +3,14 @@ using Domain.Common;
 using Domain.Entities;
 using Domain.Entities.DomainEntities;
 using Domain.Models;
+using Domain.Models.CartModels;
 using Domain.Models.DomainModels;
 using Domain.Models.FeeConfigModels;
 using Domain.Models.FinanceModels;
 using Domain.Models.HomePageModels;
 using Domain.Models.WarehouseModels;
 using Domain.Requests;
+using Domain.Requests.CartRequests;
 using Domain.Requests.DomainRequests;
 using Domain.Requests.FeeConfigRequests;
 using Domain.Requests.FinanceRequests;
@@ -33,10 +35,20 @@ namespace BaseAPI.AutoMappers
             CreateMap<WebConfigurationRequest, WebConfiguration>().ReverseMap();
             #endregion
 
+            #region Manager Account
+
             #region Account
             CreateMap<AccountModel, Account>().ReverseMap();
             CreateMap<AccountRequest, Account>().ReverseMap();
             CreateMap<PagedList<AccountModel>, PagedList<Account>>().ReverseMap();
+            #endregion
+
+            #region Commission
+            CreateMap<CommissionModel, Commission>().ReverseMap();
+            CreateMap<CommissionRequest, Commission>().ReverseMap();
+            CreateMap<PagedList<CommissionModel>, PagedList<Commission>>().ReverseMap();
+            #endregion
+
             #endregion
 
             #region Role
@@ -152,6 +164,34 @@ namespace BaseAPI.AutoMappers
             CreateMap<BankModel, Bank>().ReverseMap();
             CreateMap<BankRequest, Bank>().ReverseMap();
             CreateMap<PagedList<BankModel>, PagedList<Bank>>().ReverseMap();
+            #endregion
+
+            #region Recharge
+            CreateMap<RechargeModel, Recharge>().ReverseMap();
+            CreateMap<RechargeRequest, Recharge>().ReverseMap();
+            CreateMap<PagedList<RechargeModel>, PagedList<Recharge>>().ReverseMap();
+            #endregion
+
+            #region WithDraw
+            CreateMap<WithDrawModel, WithDraw>().ReverseMap();
+            CreateMap<WithDrawRequest, WithDraw>().ReverseMap();
+            CreateMap<PagedList<WithDrawModel>, PagedList<WithDraw>>().ReverseMap();
+            #endregion
+
+            #endregion
+
+            #region Cart
+
+            #region OrderShopTemp
+            CreateMap<OrderShopTempModel, OrderShopTemp>().ReverseMap();
+            CreateMap<OrderShopTempRequest, OrderShopTemp>().ReverseMap();
+            CreateMap<PagedList<OrderShopTempModel>, PagedList<OrderShopTemp>>().ReverseMap();
+            #endregion
+
+            #region OrderTemp
+            CreateMap<OrderTempModel, OrderTemp>().ReverseMap();
+            CreateMap<OrderTempRequest, OrderTemp>().ReverseMap();
+            CreateMap<PagedList<OrderTempModel>, PagedList<OrderTemp>>().ReverseMap();
             #endregion
 
             #endregion

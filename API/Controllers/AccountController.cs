@@ -1,6 +1,7 @@
 ﻿using Application.Extensions;
 using Application.Utilities;
 using BaseAPI.Controllers;
+using Domain.Common;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Models;
@@ -51,6 +52,27 @@ namespace API.Controllers
                 Data = request,
                 ResultCode = (int)HttpStatusCode.OK,
                 ResultMessage = "Create entity success"
+            };
+        }
+
+        /// <summary>
+        /// Get paging json
+        /// </summary>
+        /// <param name="baseSearch"></param>
+        /// <returns></returns>
+        /// <exception cref="AppException"></exception>
+        [AppAuthorize((int)PermissionEnum.View)]
+        [HttpGet("paging")]
+        public virtual async Task<AppDomainResult> GetPagingJson([FromQuery] AccountSearch baseSearch)
+        {
+            if (!ModelState.IsValid)
+                throw new AppException(ModelState.GetErrorMessage());
+            string pagedData = await _accountService.GetDataJson(baseSearch);
+            return new AppDomainResult
+            {
+                Data = pagedData,
+                Success = true,
+                ResultCode = (int)HttpStatusCode.OK
             };
         }
     }

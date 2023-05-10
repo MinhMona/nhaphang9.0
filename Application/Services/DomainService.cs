@@ -123,14 +123,10 @@ namespace Application.Services
             return pagedList;
         }
 
-        private async Task<string> GetJson(string storeName, string ouputName)
+        public async Task<string> GetJson(string storeName, S baseSearch)
         {
-            List<SqlParameter> sqlParameters = new List<SqlParameter>();
-            SqlParameter[] parameters = sqlParameters.ToArray();
-            SqlParameter outputParameter = new SqlParameter(ouputName, SqlDbType.NVarChar, int.MaxValue);
-            outputParameter.Direction = ParameterDirection.Output;
-            var data = await _unitOfWork.QueryRepository().ExcuteStoreGetValue(storeName, parameters, outputParameter);
-            return data.ToString();
+            SqlParameter[] parameters = GetSqlParameters(baseSearch);
+            return await _unitOfWork.QueryRepository().ExcuteStoreGetJsonData(storeName, parameters);
         }
         protected virtual SqlParameter[] GetSqlParameters(S baseSearch)
         {

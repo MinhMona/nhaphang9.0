@@ -2,6 +2,7 @@
 using Domain.Entities.DomainEntities;
 using Domain.Requests.DomainRequests;
 using Domain.Searchs.DomainSearchs;
+using Microsoft.Data.SqlClient;
 
 namespace Domain.Interfaces
 {
@@ -14,5 +15,6 @@ namespace Domain.Interfaces
         Task<bool> UpdateAsync(IList<R> requests);
         Task<bool> DeleteAsync(Guid id);
         Task<PagedList<E>> GetPagedListData(S baseSearch);
+        Task<string> GetJson(string storeName, S baseSearch);
     }
 }

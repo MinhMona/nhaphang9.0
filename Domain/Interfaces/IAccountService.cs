@@ -12,7 +12,7 @@ namespace Domain.Interfaces
         Task<AuthenticationModel> RegistrationAsync(RegistrationRequest request);
         Task<string> RefreshAsync(string refreshToken);
         Task<bool> HasPermission(Guid roleId, string[] roleNames);
-
         Task<bool> InsertUser(AccountRequest request);
+        Task<string> GetDataJson(AccountSearch search);
     }
 }

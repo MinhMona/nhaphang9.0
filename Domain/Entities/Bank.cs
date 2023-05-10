@@ -1,11 +1,23 @@
-﻿using Domain.Entities.DomainEntities;
-using System;
+using Domain.Entities.DomainEntities;using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Bank : BaseEntity
+public partial class Bank: BaseEntity
 {
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     public string? BankName { get; set; }
 

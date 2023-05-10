@@ -174,7 +174,7 @@ namespace Infrastructure.Repositories
 
         public virtual async Task<bool> UpdateFieldsSaveAsync(E entity, params Expression<Func<E, object>>[] includeProperties)
         {
-            entity.Created = entity.Updated = Timestamp.Now();
+            entity.Updated = Timestamp.Now();
             if (string.IsNullOrEmpty(entity.UpdatedBy))
             {
                 var User = LoginContext.Instance.CurrentUser;

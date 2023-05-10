@@ -1,11 +1,24 @@
-﻿using Domain.Entities.DomainEntities;
-using System;
+using Domain.Entities.DomainEntities;using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities;
 
-public partial class Post : BaseEntity
+public partial class Post: BaseEntity
 {
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     public string? Title { get; set; }
 
     public string? Code { get; set; }
@@ -16,9 +29,9 @@ public partial class Post : BaseEntity
 
     public bool? SideBar { get; set; }
 
-    public string? Link { get; set; }
-
     public int? Position { get; set; }
+
+    public string? Link { get; set; }
 
     public Guid? CategoryId { get; set; }
 
@@ -48,4 +61,3 @@ public partial class Post : BaseEntity
 
     public string? Name { get; set; }
 }
-
